@@ -49,7 +49,7 @@ Este é o repositório para disciplina de Banco de Dados e tem como objetivo o d
 - Vídeo da apresentação 🎥:
 
 # Equipe
-| [<img loading="lazy" src="https://avatars.githubusercontent.com/u/108764670?v=4" width=115><br><sub>Adriana Lúcia</sub>](https://github.com/Dricalucia) |  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/47667167?v=4" width=115><br><sub>Pedro Vilas Bôas</sub>](https://github.com/PedroVillasBoas) |  VINICIUS |  
+| [<img loading="lazy" src="https://avatars.githubusercontent.com/u/108764670?v=4" width=115><br><sub>Adriana Lúcia</sub>](https://github.com/Dricalucia) |  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/47667167?v=4" width=115><br><sub>Pedro Villas Boas</sub>](https://github.com/PedroVillasBoas) |   [<img loading="lazy" src="https://avatars.githubusercontent.com/u/99739118?v=4" width=115><br><sub>Vinícius Ventura</sub>](https://github.com/vinivent) |  
 | :---: | :---: | :---: |
 
 
