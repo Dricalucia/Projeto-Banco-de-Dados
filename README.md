@@ -28,7 +28,7 @@ Este é o repositório para disciplina de Banco de Dados e tem como objetivo o d
 # Estrutura do diretório: arquivos e pastas
 
 ```shell
-├── Minimundo.pdf.
+├── Minimundo.pdf
 ├── README.md
 ├── ModelagemBD
 │   ├── Conceitual
