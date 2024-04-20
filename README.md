@@ -1,6 +1,10 @@
 # Projeto de Banco de Dadoss
 
-Este é o repositório para disciplina de Banco de Dados e tem como objetivo o desenvolvimento de um sistema em Java utilizando bando de dados MySQL. Conterá a criação do minimundo do negócio escolhido, a modelagem dos dados e criação do aplicativo/site.
+Este é o repositório para disciplina de Banco de Dados e tem como objetivo o desenvolvimento de um sistema em Java utilizando SQL. 
+
+Para gerenciamento de banco de dados será  utilizado o MySQL e o framework escolhido para uso foi é Dbeaver. Para o desenvolvimento das modelagens conceitual e lógica, foi escolhido o programa brModelo.
+
+Este repositório conterá o minimundo do negócio escolhido, a modelagem dos dados e o aplicativo/site do projeto..
 
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=YELLOW&style=for-the-badge)
 
@@ -18,14 +22,13 @@ Este é o repositório para disciplina de Banco de Dados e tem como objetivo o d
 - slides e/ou interação interface/banco 
 
 
-
-
 # Tecnologias utilizadas e pré-requisitos
 ![](https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white) 	![](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white) ![](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
 
 ![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
 
-# Estrutura do diretório: arquivos e pastas
+
+# Estrutura do diretório
 
 ```shell
 ├── Minimundo.pdf
@@ -33,7 +36,6 @@ Este é o repositório para disciplina de Banco de Dados e tem como objetivo o d
 ├── ModelagemBD
 │   ├── Conceitual
 │   ├── Logico
-│   ├── Fisico
 │   └── Fisico
 ├── SQL
 │   └── Script
