@@ -5,16 +5,15 @@ use restaurante;
 
 create table lojas (
     cnpj varchar(15) primary key,
-    ie varchar(15),
-    nome varchar(10),
-    sobrenome varchar(10),
-    rua varchar(40),
-    uf varchar(2),
+    ie varchar(15) not null,
+    nome varchar(10) not null,
+    rua varchar(40) not null,
     numero integer,
-    bairro varchar(15),
-    cidade varchar(15),
+    bairro varchar(15) not null,
+    cidade varchar(15) not null,
+    uf varchar(2) not null,    
+    cep varchar(8) not null,
     telefone varchar(11),
-    complemento varchar(30),
     email varchar(50),
     ponto_referencia text,
     filial boolean
@@ -22,49 +21,47 @@ create table lojas (
 
 create table funcionario (
     matricula integer primary key,
-    cpf varchar(11),
-    nome varchar(50),
-    data_admissao date,
+    cpf varchar(11) not null,
+    nome varchar(50) not null,
+    data_admissao datetime not null default current_timestamp,
+    funcao varchar(20) not null,
     salario decimal(10,2),
-    funcao varchar(20),
-    rua varchar(50),
+    rua varchar(50) not null,
     numero integer,
-    bairro varchar(20),
-    cidade varchar(20),
-    uf varchar(2),
-    status char(1),
-    lojas_cnpj varchar(15),
+    bairro varchar(20) not null,
+    cidade varchar(20) not null,
+    uf varchar(2) not null,
+    cep varchar(8) not null,    
+    status char(1) not null,
+    lojas_cnpj varchar(15) not null,
     constraint fk_lojas_cnpj foreign key (lojas_cnpj) references lojas(cnpj)
 );
 
 
-
-create table dependente (
+create table dependentes (
     cpf_dependente varchar(11),
     funcionario_matricula integer,
-    nome varchar(50),
-    data_nascimento date,
+    nome varchar(50) not null,
+    data_nascimento date not null,
     constraint fk_funcionario_matricula foreign key (funcionario_matricula) references funcionario(matricula),
     primary key (cpf_dependente, funcionario_matricula)
 );
 
-drop table dependente ;
-
 create table cliente (
     idCliente integer primary key, 
-	nome varchar(10),
-    sobrenome varchar(10),
-    rua varchar(40),
-    uf varchar(2),
+	nome varchar(10) not null,
+    sobrenome varchar(10) not null,
+    rua varchar(40) not null,
     numero integer,
-    bairro varchar(15),
-    cidade varchar(15),
-    telefone varchar(11) unique,
     complemento varchar(30),
+    bairro varchar(15) not null,
+    cidade varchar(15) not null,
+    uf varchar(2) not null,
+    telefone varchar(11) unique not null,
     email varchar(50),
-    ponto_referencia text,
+    ponto_referencia text not null,
     observacao text,
-    data_cadastro date
+    data_cadastro datetime not null default current_timestamp
 );
 
 create table item (						# temaki salmão, urumaki, jôjô
@@ -72,7 +69,9 @@ create table item (						# temaki salmão, urumaki, jôjô
     nome_item varchar(20),
     descricao varchar(255),
     ativo boolean,
-    preco decimal(10,2)
+    preco decimal(10,2),
+    categoria_idCategoria integer,
+    constraint fk_categoria_idCategoria foreign key (categoria_idCategoria) references categoria(idCategoria)
 );
 
 create table categoria (				  # Bebidas, Proteinas, Temperos, Carboidrato
@@ -80,83 +79,47 @@ create table categoria (				  # Bebidas, Proteinas, Temperos, Carboidrato
     descricao varchar(20)
 );
 
-create table produto (					# arroz, shoyo, refrigerante, salmão
-    idProduto integer primary key,
-    nome_produto varchar(50),
-    categoria_idCategoria integer, 
-    constraint fk_categoria_idCategoria foreign key (categoria_idCategoria) references categoria(idCategoria)
-);
-
-create table estoque (
-	idEstoque integer,    
-	produto_idProduto integer,
-    estoque_minimo decimal(5,2),
-	constraint fk_produto_idProduto foreign key (produto_idProduto) references produto(idProduto),
-	primary key(idEstoque, produto_idProduto)
-);
-
-create table estoque_disponivel (			
-    estoque_idEstoque integer,
+create table promocao (
+    idPromocao integer,
     item_idItem integer,
-    dt_validade date,
-    qtd_estoque integer,
-    constraint fk_estoque_idEstoque foreign key (estoque_idEstoque) references estoque(idEstoque),
-    constraint fk_item_idItem_disponivel foreign key (item_idItem) references item(idItem),
-	primary key(estoque_idEstoque, item_idItem,dt_validade)
+    data_promocao datetime not null default current_timestamp,
+    data_validade datetime not null,
+    preco decimal(10,2),
+    observacao varchar(100),
+    constraint fk_item_idItem_promocao foreign key (item_idItem) references item(idItem),
+    primary key (idPromocao, item_idItem, data_promocao)
 );
-
 
 create table pedido (
     nrPedido integer primary key,
-    data_hora_pedido datetime,
-    data_hora_entrega datetime,
-    canal_soliticacao_pedido varchar(20) default 'site',	#Padrão será site
-    status_pedido varchar(20),								#em preparo, saiu para entrega, entrega realizada
-    canal_entrega varchar(20),								#em domicilio, retirada na loja
+    data_hora_pedido datetime not null default current_timestamp,
+    data_hora_prevista_entrega datetime not null,
     data_hora_saida_entrega datetime,
-    forma_pagamento varchar(20),							#cartão credito, cartão débito, vale alimentação, dinheiro
-    valor_total_pedido decimal(10,2),
+    data_hora_entrega datetime,
+    status_pedido varchar(20),		
+    canal_soliticacao_pedido varchar(20) default 'site',	#Padrão será site						
+    canal_entrega varchar(20) default 'domicilio',			#em domicilio, retirada na loja
+    forma_pagamento varchar(20) default 'cartao credito',	#cartão credito, cartão débito, vale alimentação, dinheiro
+    valor_total_pedido decimal(10,2)
+  );
+ 
+ create table pedido_cliente_atende (
     cliente_idCliente integer,
-    constraint fk_cliente_idCliente foreign key (cliente_idCliente) references cliente(idCliente)
+    pedido_nrPedido integer,
+    funcionario_matricula integer,    
+    constraint fk_cliente_idCliente_pedidos foreign key (cliente_idCliente) references cliente(idCliente),
+    constraint fk_pedido_nrPedido_pedidos foreign key (pedido_nrPedido) references pedido(nrPedido),
+    constraint fk_funcionario_matricula_pedidos foreign key (funcionario_matricula) references funcionario(matricula),
+    primary key (cliente_idCliente, pedido_nrPedido, funcionario_matricula)
 );
 
-create table itens_pedido (
+create table pedido_itens (
     pedido_nrPedido integer,
     item_idItem integer,
-    constraint fk_pedido_nrPedido foreign key (pedido_nrPedido) references pedido(nrPedido),
-    constraint fk_item_idItem foreign key (item_idItem) references item(idItem),
+    constraint fk_pedido_nrPedido_itens foreign key (pedido_nrPedido) references pedido(nrPedido),
+    constraint fk_item_idItem_itens foreign key (item_idItem) references item(idItem),
     primary key(pedido_nrPedido, item_idItem)    
 );
-
-create table item_produtos (		#relacionamento N:N
-    item_idItem integer,
-    produto_idProduto integer,
-    constraint fk_item_idItem foreign key (item_idItem) references item(idItem),
-    constraint fk_produto_idProduto foreign key (produto_idProduto) references produto(idProduto),
-    primary key(item_idItem, produto_idProduto)    
-);
-
-
-create table promocao (
-    idPromocao integer primary key,
-    item_idItem integer,
-    data_promocao date,
-    data_validade date,
-    preco decimal(10,2),
-    observacao varchar(100),
-    constraint fk_item_idItem_promocao foreign key (item_idItem) references item(idItem)
-);
-
-
-
-create table atende_pedido (
-	funcionario_matricula integer,
-	pedido_nrPedido integer,
-	constraint fk_pedido_nrPedido_atende foreign key (pedido_nrPedido) references pedido(nrPedido),
-	constraint fk_funcionario_matricula_atende foreign key (funcionario_matricula) references funcionario(matricula),
-    primary key(funcionario_matricula, pedido_nrPedido)
-);
-
 
 
 
