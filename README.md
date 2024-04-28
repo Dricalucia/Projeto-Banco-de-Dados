@@ -52,6 +52,7 @@ Este repositório conterá o minimundo do negócio escolhido, a modelagem dos da
 # Apresentação do Projeto
 - Slides 📊: 
 - Vídeo da apresentação 🎥:
+- [Figma](https://www.figma.com/file/hCwtRKyYw3bSQgvGvJATJT/Webflow-Lofi-Prototype-(Community)?type=design&node-id=1%3A1001&mode=design&t=TmnE8kHre7VyWULf-1)
 
 # Equipe
 | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/108764670?v=4" width=115><br><sub>Adriana Lúcia</sub>](https://github.com/Dricalucia) |  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/47667167?v=4" width=115><br><sub>Pedro Villas Boas</sub>](https://github.com/PedroVillasBoas) |   [<img loading="lazy" src="https://avatars.githubusercontent.com/u/99739118?v=4" width=115><br><sub>Vinícius Ventura</sub>](https://github.com/vinivent) |  
