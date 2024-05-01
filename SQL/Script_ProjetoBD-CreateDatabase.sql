@@ -1,5 +1,7 @@
 /* Projeto BD Restaurante */
 
+/* Projeto BD Restaurante */
+
 create database restaurante;
 use restaurante;
 
@@ -33,6 +35,7 @@ create table funcionario (
     uf varchar(2) not null,
     cep varchar(8) not null,    
     status char(1) not null,
+    senha varchar(20) not null, 
     lojas_cnpj varchar(15) not null,
     constraint fk_lojas_cnpj foreign key (lojas_cnpj) references lojas(cnpj)
 );
@@ -57,35 +60,12 @@ create table cliente (
     bairro varchar(15) not null,
     cidade varchar(15) not null,
     uf varchar(2) not null,
-    telefone varchar(11) unique not null,
-    email varchar(50),
+    telefone varchar(11) not null,
+    email varchar(50) unique not null,
     ponto_referencia text not null,
+    senha varchar(20) not null,
     observacao text,
     data_cadastro datetime not null default current_timestamp
-);
-
-create table item (						# temaki salmão, urumaki, jôjô
-    idItem integer primary key,
-    nome_item varchar(20),
-    descricao varchar(255),
-    ativo boolean,
-    preco decimal(10,2)
-);
-
-create table categoria (				  # Bebidas, Proteinas, Temperos, Carboidrato
-    idCategoria integer primary key,
-    descricao varchar(20)
-);
-
-create table promocao (
-    idPromocao integer,
-    item_idItem integer,
-    data_promocao datetime not null default current_timestamp,
-    data_validade datetime not null,
-    preco decimal(10,2),
-    observacao varchar(100),
-    constraint fk_item_idItem_promocao foreign key (item_idItem) references item(idItem),
-    primary key (idPromocao, item_idItem, data_promocao)
 );
 
 create table pedido (
@@ -100,15 +80,31 @@ create table pedido (
     forma_pagamento varchar(20) default 'cartao credito',	#cartão credito, cartão débito, vale alimentação, dinheiro
     valor_total_pedido decimal(10,2)
   );
- 
- create table pedido_cliente_atende (
-    cliente_idCliente integer,
-    pedido_nrPedido integer,
-    funcionario_matricula integer,    
-    constraint fk_cliente_idCliente_pedidos foreign key (cliente_idCliente) references cliente(idCliente),
-    constraint fk_pedido_nrPedido_pedidos foreign key (pedido_nrPedido) references pedido(nrPedido),
-    constraint fk_funcionario_matricula_pedidos foreign key (funcionario_matricula) references funcionario(matricula),
-    primary key (cliente_idCliente, pedido_nrPedido, funcionario_matricula)
+
+ create table categoria (				  # Bebidas, Proteinas, Temperos, Carboidrato
+    idCategoria integer primary key,
+    descricao varchar(20)
+);
+
+create table item (						# temaki salmão, urumaki, jôjô
+    idItem integer primary key,
+    nome_item varchar(20),
+    descricao varchar(255),
+    ativo boolean,
+    preco decimal(10,2),
+    categoria_idCategoria integer,
+    constraint fk_categoria_idCategoria foreign key (categoria_idCategoria) references categoria(idCategoria)
+);
+
+create table promocao (
+    idPromocao integer,
+    item_idItem integer,
+    data_promocao datetime not null default current_timestamp,
+    data_validade datetime not null,
+    preco decimal(10,2),
+    observacao varchar(100),
+    constraint fk_item_idItem_promocao foreign key (item_idItem) references item(idItem),
+    primary key (idPromocao, item_idItem, data_promocao)
 );
 
 create table pedido_itens (
@@ -117,6 +113,16 @@ create table pedido_itens (
     constraint fk_pedido_nrPedido_itens foreign key (pedido_nrPedido) references pedido(nrPedido),
     constraint fk_item_idItem_itens foreign key (item_idItem) references item(idItem),
     primary key(pedido_nrPedido, item_idItem)    
+);
+
+ 
+ create table pedido_cliente (
+    cliente_idCliente integer,
+    pedido_nrPedido integer,
+    funcionario_matricula integer,    
+    constraint fk_cliente_idCliente_pedidos foreign key (cliente_idCliente) references cliente(idCliente),
+    constraint fk_pedido_nrPedido_pedidos foreign key (pedido_nrPedido) references pedido(nrPedido),
+    primary key (cliente_idCliente, pedido_nrPedido)
 );
 
 
