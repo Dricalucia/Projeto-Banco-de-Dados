@@ -1,0 +1,135 @@
+/* CRUD de todas as tabelas do banco de dados */
+
+/* LOJA */
+#  Cadastrar Loja
+String cadastrarLojaSQL = "INSERT INTO lojas (cnpj, ie, nome, rua, numero, complemento, bairro, cidade, uf, cep, telefone, email, ponto_referencia, filial) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+#  Consultar Loja
+String consultarLojaSQL = "SELECT * FROM lojas WHERE cnpj = ?";
+
+#  Alterar Loja
+String alterarLojaSQL = "UPDATE lojas SET nome = ?, rua = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ?, cep = ?, telefone = ?, email = ?, ponto_referencia = ?, filial = ? WHERE cnpj = ?";
+
+# / Excluir Loja
+String excluirLojaSQL = "DELETE FROM lojas WHERE cnpj = ?";
+
+/* CLIENTE */
+# Cadastrar Cliente
+String sql = "INSERT INTO clientes (nome, sobrenome, rua, numero, complemento, bairro, cidade, uf, telefone, email, ponto_referencia, senha, observacao, data_cadastro) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+# consultar Cliente
+String sql = "SELECT * FROM clientes WHERE id_cliente = ?"
+
+# alterar Cliente
+String sql = "UPDATE clientes SET nome = ?, sobrenome = ?, rua = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ?, telefone = ?, email = ?, ponto_referencia = ?, senha = ?, observacao = ?, data_cadastro = ? WHERE id_cliente = ?";
+
+# excluir Cliente
+String sql = "DELETE FROM clientes WHERE id_cliente = ?"
+
+/* FUNCIONARIO*/
+# Cadastrar Funcionário
+String cadastrarFuncionarioSQL = "INSERT INTO funcionario (cpf, nome, data_admissao, funcao, salario, rua, numero, bairro, cidade, uf, cep, status, senha, lojas_cnpj) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+# Consultar Funcionário
+String consultarFuncionarioSQL = "SELECT * FROM funcionario WHERE matricula = ?";
+
+# Alterar Funcionário
+String alterarFuncionarioSQL = "UPDATE funcionario SET nome = ?, data_admissao = ?, funcao = ?, salario = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, uf = ?, cep = ?, status = ?, senha = ?, lojas_cnpj = ? WHERE matricula = ?";
+
+# Excluir Funcionário
+String excluirFuncionarioSQL = "DELETE FROM funcionario WHERE matricula = ?";
+
+/* DEPENDENTE */
+# Cadastrar Dependente
+String cadastrarDependenteSQL = "INSERT INTO dependentes (cpf_dependente, funcionario_matricula, nome, data_nascimento) VALUES (?, ?, ?, ?)";
+
+#  Consultar Dependente
+String consultarDependenteSQL = "SELECT * FROM dependentes WHERE cpf_dependente = ? AND funcionario_matricula = ?";
+
+#  Alterar Dependente
+String alterarDependenteSQL = "UPDATE dependentes SET nome = ?, data_nascimento = ? WHERE cpf_dependente = ? AND funcionario_matricula = ?";
+
+#  Excluir Dependente
+String excluirDependenteSQL = "DELETE FROM dependentes WHERE cpf_dependente = ? AND funcionario_matricula = ?";
+
+/* PEDIDO */
+# Cadastrar Pedido
+String cadastrarPedidoSQL = "INSERT INTO pedido (nrPedido, data_hora_prevista_entrega, status_pedido, canal_soliticacao_pedido, canal_entrega, forma_pagamento, valor_total_pedido) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+# Consultar Pedido
+String consultarPedidoSQL = "SELECT * FROM pedido WHERE nrPedido = ?";
+
+# Atualizar Pedido
+String atualizarPedidoSQL = "UPDATE pedido SET status_pedido = ?, data_hora_saida_entrega = ?, data_hora_entrega = ? WHERE nrPedido = ?";
+
+# Excluir Pedido
+String excluirPedidoSQL = "DELETE FROM pedido WHERE nrPedido = ?";
+
+/* CATEGORIA */
+# Cadastrar Categoria
+String cadastrarCategoriaSQL = "INSERT INTO categoria (descricao) VALUES (?)";
+
+# Consultar Categoria
+String consultarCategoriaSQL = "SELECT * FROM categoria WHERE idCategoria = ?";
+
+# Atualizar Categoria
+String atualizarCategoriaSQL = "UPDATE categoria SET descricao = ? WHERE idCategoria = ?";
+
+# Excluir Categoria
+String excluirCategoriaSQL = "DELETE FROM categoria WHERE idCategoria = ?";
+
+/* ITEM */
+# Cadastrar Item
+String cadastrarItemSQL = "INSERT INTO item (nome_item, descricao, ativo, preco, categoria_idCategoria) VALUES (?, ?, ?, ?, ?)";
+
+# Consultar Item
+String consultarItemSQL = "SELECT * FROM item WHERE idItem = ?";
+
+# Atualizar Item
+String atualizarItemSQL = "UPDATE item SET nome_item = ?, descricao = ?, ativo = ?, preco = ?, categoria_idCategoria = ? WHERE idItem = ?";
+
+# Excluir Item
+String excluirItemSQL = "DELETE FROM item WHERE idItem = ?";
+
+/* PROMOÇÃO */
+# Cadastrar Promoção
+String cadastrarPromocaoSQL = "INSERT INTO promocao (item_idItem, data_validade, preco, observacao) VALUES (?, ?, ?, ?)";
+
+# Consultar Promoção
+String consultarPromocaoSQL = "SELECT * FROM promocao WHERE idPromocao = ? AND item_idItem = ?";
+
+# Atualizar Promoção
+String atualizarPromocaoSQL = "UPDATE promocao SET data_validade = ?, preco = ?, observacao = ? WHERE idPromocao = ? AND item_idItem = ?";
+
+# Excluir Promoção
+String excluirPromocaoSQL = "DELETE FROM promocao WHERE idPromocao = ? AND item_idItem = ?";
+
+/* PEDIDO_ITEM */
+# Cadastrar Item do Pedido
+String cadastrarItemPedidoSQL = "INSERT INTO pedido_itens (pedido_nrPedido, item_idItem, qtde_item) VALUES (?, ?, ?)";
+
+# Consultar Item do Pedido
+String consultarItemPedidoSQL = "SELECT * FROM pedido_itens WHERE pedido_nrPedido = ? AND item_idItem = ?";
+
+# Atualizar Item do Pedido
+String atualizarItemPedidoSQL = "UPDATE pedido_itens SET qtde_item = ? WHERE pedido_nrPedido = ? AND item_idItem = ?";
+
+# Excluir Item do Pedido
+String excluirItemPedidoSQL = "DELETE FROM pedido_itens WHERE pedido_nrPedido = ? AND item_idItem = ?";
+
+/* PEDIDO_CLIENTE */
+# Cadastrar Pedido do Cliente
+String cadastrarPedidoClienteSQL = "INSERT INTO pedido_cliente (cliente_idCliente, pedido_nrPedido, funcionario_matricula) VALUES (?, ?, ?)";
+
+# Consultar Pedido do Cliente
+String consultarPedidoClienteSQL = "SELECT * FROM pedido_cliente WHERE cliente_idCliente = ? AND pedido_nrPedido = ?";
+
+# Atualizar Pedido do Cliente
+String atualizarPedidoClienteSQL = "UPDATE pedido_cliente SET funcionario_matricula = ? WHERE cliente_idCliente = ? AND pedido_nrPedido = ?";
+
+# Excluir Pedido do Cliente
+String excluirPedidoClienteSQL = "DELETE FROM pedido_cliente WHERE cliente_idCliente = ? AND pedido_nrPedido = ?";
+
+
+
+
