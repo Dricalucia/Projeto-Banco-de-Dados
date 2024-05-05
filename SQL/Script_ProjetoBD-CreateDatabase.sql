@@ -1,7 +1,5 @@
 /* Projeto BD Restaurante */
 
-/* Projeto BD Restaurante */
-
 create database restaurante;
 use restaurante;
 
@@ -22,7 +20,7 @@ create table lojas (
 );
 
 create table funcionario (
-    matricula integer primary key,
+    matricula integer auto_increment primary key,
     cpf varchar(11) not null,
     nome varchar(50) not null,
     data_admissao datetime not null default current_timestamp,
@@ -51,7 +49,7 @@ create table dependentes (
 );
 
 create table cliente (
-    idCliente integer primary key, 
+    idCliente integer auto_increment primary key, 
 	nome varchar(10) not null,
     sobrenome varchar(10) not null,
     rua varchar(40) not null,
@@ -69,7 +67,7 @@ create table cliente (
 );
 
 create table pedido (
-    nrPedido integer primary key,
+    nrPedido integer auto_increment primary key,
     data_hora_pedido datetime not null default current_timestamp,
     data_hora_prevista_entrega datetime not null,
     data_hora_saida_entrega datetime,
@@ -82,12 +80,12 @@ create table pedido (
   );
 
  create table categoria (				  # Bebidas, Proteinas, Temperos, Carboidrato
-    idCategoria integer primary key,
+    idCategoria integer auto_increment primary key,
     descricao varchar(20)
 );
 
 create table item (						# temaki salmão, urumaki, jôjô
-    idItem integer primary key,
+    idItem integer auto_increment primary key,
     nome_item varchar(20),
     descricao varchar(255),
     ativo boolean,
@@ -97,7 +95,7 @@ create table item (						# temaki salmão, urumaki, jôjô
 );
 
 create table promocao (
-    idPromocao integer,
+    idPromocao integer auto_increment,
     item_idItem integer,
     data_promocao datetime not null default current_timestamp,
     data_validade datetime not null,
@@ -110,6 +108,7 @@ create table promocao (
 create table pedido_itens (
     pedido_nrPedido integer,
     item_idItem integer,
+    qtde_item integer
     constraint fk_pedido_nrPedido_itens foreign key (pedido_nrPedido) references pedido(nrPedido),
     constraint fk_item_idItem_itens foreign key (item_idItem) references item(idItem),
     primary key(pedido_nrPedido, item_idItem)    
@@ -124,5 +123,7 @@ create table pedido_itens (
     constraint fk_pedido_nrPedido_pedidos foreign key (pedido_nrPedido) references pedido(nrPedido),
     primary key (cliente_idCliente, pedido_nrPedido)
 );
+
+
 
 
