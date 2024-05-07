@@ -1,5 +1,7 @@
 /* Projeto BD Restaurante */
 
+/* Projeto BD Restaurante */
+
 create database restaurante;
 use restaurante;
 
@@ -108,11 +110,12 @@ create table promocao (
 create table pedido_itens (
     pedido_nrPedido integer,
     item_idItem integer,
-    qtde_item integer
+    qtde_item integer,
     constraint fk_pedido_nrPedido_itens foreign key (pedido_nrPedido) references pedido(nrPedido),
     constraint fk_item_idItem_itens foreign key (item_idItem) references item(idItem),
     primary key(pedido_nrPedido, item_idItem)    
 );
+
 
  
  create table pedido_cliente (
@@ -123,7 +126,4 @@ create table pedido_itens (
     constraint fk_pedido_nrPedido_pedidos foreign key (pedido_nrPedido) references pedido(nrPedido),
     primary key (cliente_idCliente, pedido_nrPedido)
 );
-
-
-
 
