@@ -19,6 +19,7 @@ public class ItensPedidoRepository {
         String sql = "INSERT INTO pedido_itens (pedido_nrPedido, item_idItem, qtde_item) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql, itensPedido.getPedidoNrPedido(), itensPedido.getItemIdItem(), itensPedido.getQuantidadeItem());
     }
+    @SuppressWarnings("deprecation")
     public ItensPedido findPedidoByNrPedido(int nrPedido) {
         String sql = "SELECT pi.pedido_nrPedido, pi.item_idItem, pi.qtde_item, " +
                 "p.data_hora_pedido, p.data_hora_prevista_entrega, " +

@@ -13,7 +13,8 @@ import java.util.List;
 public class PedidoRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
+    
+    @SuppressWarnings("deprecation")
     public Pedido findByNrPedido(int nrPedido) {
         String sql = "SELECT * FROM pedido WHERE nrPedido = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{nrPedido}, this::mapRowToPedido);

@@ -14,6 +14,7 @@ public class ClienteRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @SuppressWarnings("deprecation")
     public Cliente findByClientId(int idCliente) {
         String sql = "SELECT * FROM cliente WHERE idCliente = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{idCliente}, this::mapRowToCliente);

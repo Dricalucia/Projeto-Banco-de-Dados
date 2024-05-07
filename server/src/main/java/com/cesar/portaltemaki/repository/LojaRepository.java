@@ -32,6 +32,7 @@ public class LojaRepository {
                         rs.getBoolean("filial")
                 ));
     }
+    @SuppressWarnings("deprecation")
     public Loja findByCnpj(String cnpj) {
         String sql = "SELECT * FROM lojas WHERE cnpj = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{cnpj}, (rs, rowNum) ->

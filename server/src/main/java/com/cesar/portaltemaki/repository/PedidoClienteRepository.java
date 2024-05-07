@@ -30,7 +30,7 @@ public class PedidoClienteRepository {
                 "JOIN pedido p ON pc.pedido_nrPedido = p.nrPedido";
         return jdbcTemplate.query(sql, this::mapRowToPedidoCliente);
     }
-
+    @SuppressWarnings("deprecation")
     public PedidoCliente findByClienteId(int idCliente) {
         String sql = "SELECT pc.cliente_idCliente, pc.pedido_nrPedido FROM pedido_cliente pc " +
                 "JOIN cliente c ON pc.cliente_idCliente = c.idCliente " +

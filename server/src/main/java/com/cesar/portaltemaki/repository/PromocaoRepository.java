@@ -20,11 +20,12 @@ public class PromocaoRepository {
         return jdbcTemplate.query(sql, this::mapRowToPromocao);
     }
 
+    @SuppressWarnings("deprecation")
     public Promocao findPromocaoById(int idPromocao) {
         String sql = "SELECT * FROM promocao WHERE idPromocao = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{idPromocao}, this::mapRowToPromocao);
     }
-
+    @SuppressWarnings("deprecation")
     public Promocao promocaoByItemId(int idItem) {
         String sql = "SELECT p.*, i.* FROM promocao p JOIN item i ON p.item_idItem = i.idItem WHERE p.item_idItem = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{idItem}, this::mapRowToPromocao);

@@ -18,7 +18,7 @@ public class CategoriaRepository {
         String sql = "SELECT * FROM categoria";
         return jdbcTemplate.query(sql, this::mapRowToCategoria);
     }
-
+    @SuppressWarnings("deprecation")
     public Categoria findByCategoriaId(int idCategoria) {
         String sql = "SELECT * FROM categoria WHERE idCategoria = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{idCategoria}, this::mapRowToCategoria);

@@ -15,7 +15,8 @@ public class DependenteRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
+    
+    @SuppressWarnings("deprecation")
     public List<Dependente> findByFuncionarioMatricula(int matricula) {
         String sql = "SELECT d.cpf_dependente, d.funcionario_matricula, d.nome, d.data_nascimento " +
                 "FROM dependentes d " +

@@ -14,7 +14,8 @@ public class FuncionarioRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
+    
+    @SuppressWarnings("deprecation")
     public Funcionario findByMatricula(int matricula) {
         String sql = "SELECT * FROM funcionario WHERE matricula = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{matricula}, this::mapRowToFuncionario);

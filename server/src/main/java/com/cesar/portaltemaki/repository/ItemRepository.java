@@ -37,7 +37,7 @@ public class ItemRepository {
         String sql = "SELECT * FROM item";
         return jdbcTemplate.query(sql, this::mapRowToItem);
     }
-
+    @SuppressWarnings("deprecation")
     public Item findItemById(int idItem) {
         String sql = "SELECT * FROM item WHERE idItem = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{idItem}, this::mapRowToItem);
