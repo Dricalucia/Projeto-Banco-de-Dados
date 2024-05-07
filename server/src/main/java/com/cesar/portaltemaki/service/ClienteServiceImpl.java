@@ -2,6 +2,8 @@ package com.cesar.portaltemaki.service;
 
 import com.cesar.portaltemaki.model.Cliente;
 import com.cesar.portaltemaki.repository.ClienteRepository;
+
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +23,11 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente findByClientId(int idCliente) {
-        return clienteRepository.findByClientId(idCliente);
+        try {
+            return clienteRepository.findByClientId(idCliente);
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
     }
 
     @Override
