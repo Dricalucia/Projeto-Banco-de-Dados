@@ -75,7 +75,7 @@ create table pedido (
     data_hora_saida_entrega datetime,
     data_hora_entrega datetime,
     status_pedido varchar(20),		
-    canal_soliticacao_pedido varchar(20) default 'site',	#Padrão será site						
+    canal_solicitacao_pedido varchar(20) default 'site',	#Padrão será site						
     canal_entrega varchar(20) default 'domicilio',			#em domicilio, retirada na loja
     forma_pagamento varchar(20) default 'cartao credito',	#cartão credito, cartão débito, vale alimentação, dinheiro
     valor_total_pedido decimal(10,2)
@@ -120,8 +120,7 @@ create table pedido_itens (
  
  create table pedido_cliente (
     cliente_idCliente integer,
-    pedido_nrPedido integer,
-    funcionario_matricula integer,    
+    pedido_nrPedido integer,   
     constraint fk_cliente_idCliente_pedidos foreign key (cliente_idCliente) references cliente(idCliente),
     constraint fk_pedido_nrPedido_pedidos foreign key (pedido_nrPedido) references pedido(nrPedido),
     primary key (cliente_idCliente, pedido_nrPedido)
