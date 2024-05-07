@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -15,7 +14,7 @@ public class DependenteRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    
+
     @SuppressWarnings("deprecation")
     public List<Dependente> findByFuncionarioMatricula(int matricula) {
         String sql = "SELECT d.cpf_dependente, d.funcionario_matricula, d.nome, d.data_nascimento " +

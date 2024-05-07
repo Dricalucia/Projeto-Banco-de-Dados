@@ -26,6 +26,7 @@ public class FuncionarioRepository {
         return jdbcTemplate.query(sql, this::mapRowToFuncionario);
     }
 
+    @SuppressWarnings("deprecation")
     public List<Funcionario> findByLojasCnpj(String cnpj) {
         String sql = "SELECT f.*, l.* FROM funcionario f " +
                 "JOIN lojas l ON f.lojas_cnpj = l.cnpj " +
