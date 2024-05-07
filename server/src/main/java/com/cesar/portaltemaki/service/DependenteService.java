@@ -2,7 +2,6 @@ package com.cesar.portaltemaki.service;
 
 import com.cesar.portaltemaki.model.Dependente;
 
-import java.sql.Date;
 import java.util.List;
 
 public interface DependenteService {

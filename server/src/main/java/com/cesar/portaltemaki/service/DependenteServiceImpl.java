@@ -4,7 +4,6 @@ import com.cesar.portaltemaki.model.Dependente;
 import com.cesar.portaltemaki.repository.DependenteRepository;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.List;
 
 @Service
