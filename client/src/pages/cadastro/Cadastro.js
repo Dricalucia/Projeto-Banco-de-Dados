@@ -1,59 +1,72 @@
+// Incorporação do Script de Exeplo do Bootstrap com Validação de CEP e Preenchimento de Campos de Endereço de forma Assíncrona
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
-    // Seletores de elementos do DOM para o endereço
+    // Seletores de elementos do DOM
     const cep = document.querySelector("#CEPCadastro");
     const endereco = document.querySelector("#enderecoCadastro");
     const bairro = document.querySelector("#bairroCadastro");
     const cidade = document.querySelector("#cidadeCadastro");
     const estado = document.querySelector("#estadoCadastro");
-    const message = document.querySelector("#message"); // Supondo que você tenha um elemento para mensagens de erro
-
-    // Adiciona validação de formulários do Bootstrap
     const forms = document.querySelectorAll('.needs-validation');
-    Array.from(forms).forEach(form => {
+
+    // Expressões regulares para validar o CEP
+    const validarCep = /^[0-9]+$/;
+    const cepValido = /^[0-9]{8}$/;
+
+    forms.forEach(form => {
         form.addEventListener('submit', event => {
-            if (!form.checkValidity()) {
+            let formIsValid = form.checkValidity();
+
+            // Verifica primeiro a validade do formulário pelo Bootstrap
+            if (!formIsValid) {
+                event.preventDefault();
+                event.stopPropagation();
+                form.classList.add('was-validated'); // Isso vai garantir que o feedback de validação do Bootstrap vai ser exibido
+            }
+
+            // Verificação específica para o campo CEP
+            if (!validarCep.test(cep.value) || !cepValido.test(cep.value)) {
+                event.preventDefault();
+                event.stopPropagation();
+                cep.classList.add('is-invalid');
+                cep.classList.remove('is-valid');
+                cep.nextElementSibling.textContent = 'CEP inválido!';
+                formIsValid = false; // Atualiza o status de validade do formulário
+            }
+
+            if (!formIsValid) {
                 event.preventDefault();
                 event.stopPropagation();
             }
-            form.classList.add('was-validated');
-        }, false);
-    });
+        });
 
-    // Evento 'focusout' para o CEP
-    cep.addEventListener('focusout', async () => {
-        try {
-            const validarCep = /^[0-9]+$/;
-            const cepValido = /^[0-9]{8}$/;
+        cep.addEventListener('focusout', async () => {
+            try {
+                if (!validarCep.test(cep.value) || !cepValido.test(cep.value)) {
+                    throw new Error('CEP inválido!');
+                }
 
-            if (!validarCep.test(cep.value) || !cepValido.test(cep.value)) {
-                throw { cepInvalido: 'CEP inválido!' };
-            }
+                const resposta = await fetch(`https://viacep.com.br/ws/${cep.value}/json/`);
+                if (!resposta.ok) throw new Error('Erro ao buscar CEP');
 
-            const resposta = await fetch(`https://viacep.com.br/ws/${cep.value}/json/`);
+                const dadosCep = await resposta.json();
+                endereco.value = dadosCep.logradouro;
+                bairro.value = dadosCep.bairro;
+                cidade.value = dadosCep.localidade;
+                estado.value = dadosCep.uf;
+                cep.classList.remove('is-invalid');
+                cep.classList.add('is-valid');
+            } catch (error) {
+                cep.classList.add('is-invalid');
+                cep.classList.remove('is-valid');
+                cep.nextElementSibling.textContent = error.message;
 
-            if (!resposta.ok) {
-                throw await resposta.json();
-            }
-
-            const dadosCep = await resposta.json();
-            endereco.value = dadosCep.logradouro;
-            bairro.value = dadosCep.bairro;
-            cidade.value = dadosCep.localidade;
-            estado.value = dadosCep.uf;
-        } catch (error) {
-            if (error?.cepInvalido) {
-                message.textContent = error.cepInvalido;
-                setTimeout(() => {
-                    message.textContent = '';
-                }, 5000);
-                cep.value = '';
                 endereco.value = '';
                 bairro.value = '';
                 cidade.value = '';
                 estado.value = '';
             }
-        }
+        });
     });
 });
