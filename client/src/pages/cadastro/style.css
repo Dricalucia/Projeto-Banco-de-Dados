@@ -6,6 +6,11 @@ body, html {
     color: white;
 }
 
+.img-fluid {
+    max-width: 50%;
+    max-height: 50%;
+}
+
 h2 {
     font-weight: 700;
 }

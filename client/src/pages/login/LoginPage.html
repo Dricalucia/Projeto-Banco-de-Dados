@@ -26,16 +26,22 @@
                 <div class="login-card bg-white px-3 py-5 shadow-lg rounded-4 border border-2 border-black">
                     <h2 class="text-center text-black">Bem Vindo!</h2>
                     <p class="text-center text-black">Por favor, faça seu login para entrar na plataforma.</p>
-                    <form id="login-form">
+                    <form id="login-form" class="needs-validation" novalidate>
                         <div class="form-group mb-3 pt-5">
                             <input type="email" class="form-control border border-secondary-subtle" id="emailLogin"
                                 placeholder="E-mail" required>
+                                <div class="invalid-feedback">
+                                    E-mail inválido. Por favor, insira um e-mail válido.
+                                </div>
                         </div>
                         <div class="form-group mb-5">
                             <input type="password" class="form-control border border-secondary-subtle" id="senhaLogin"
                                 placeholder="Senha" required>
+                                <div class="invalid-feedback">
+                                    Senha incorreta.
+                                </div>
                         </div>
-                        <button type="submit" class="btn btn-dark w-50 mb-3">Login</button>
+                        <button type="submit" class="btn btn-dark w-50 mb-2">Login</button>
                         <button type="button" class="btn btn-dark w-50">Cadastre-se</button>
                     </form>
                 </div>
@@ -43,9 +49,12 @@
         </div>
     </div>
     <!-- Scripts JavaScript do jQuery e Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
+    <!-- Referencia do JavaScript -->
+    <script src="Login.js"></script>
 </body>
 
 </html>
