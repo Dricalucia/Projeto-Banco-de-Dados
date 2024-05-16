@@ -1,3 +1,55 @@
+// Passar para segunda parte do formulario
+document.addEventListener('DOMContentLoaded', function () {
+    const proximoButton = document.getElementById('proximoButton');
+    const cadastrarButton = document.getElementById('cadastrarButton');
+    const parte1 = document.getElementById('parte1');
+    const parte2 = document.getElementById('parte2');
+    const nome = document.getElementById('nome');
+    const sobrenome = document.getElementById('sobrenome');
+    const emailCadastro = document.getElementById('emailCadastro');
+    const senhaCadastro = document.getElementById('senhaCadastro');
+    const telefone = document.getElementById('telefone');
+    const form = document.querySelector('.needs-validation');
+
+    proximoButton.addEventListener('click', function (event) {
+        // Força a validação dos campos específicos da primeira parte do formulário
+        let isValid = nome.checkValidity() && sobrenome.checkValidity() &&
+                      emailCadastro.checkValidity() && senhaCadastro.checkValidity() &&
+                      telefone.checkValidity();
+
+        if (!isValid) {
+            event.preventDefault();
+            event.stopPropagation();
+            // Adiciona a classe para mostrar feedback de validação do Bootstrap para cada campo da primeira parte
+            [nome, sobrenome, emailCadastro, senhaCadastro, telefone].forEach(field => {
+                if (!field.checkValidity()) {
+                    field.classList.add('is-invalid');
+                }
+            });
+            form.classList.add('was-validated');
+        } else {
+            // Se os campos são válidos, vai para a segunda parte
+            parte1.style.display = 'none';
+            parte2.style.display = 'block';
+            proximoButton.style.display = 'none';
+            cadastrarButton.style.display = 'block';
+        }
+    });
+
+    form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        form.classList.add('was-validated'); // Assegura que a validação do formulário é mostrada
+    });
+});
+
+
+
+
+
+
 // Incorporação do Script de Exeplo do Bootstrap com Validação de CEP e Preenchimento de Campos de Endereço de forma Assíncrona
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
