@@ -27,6 +27,12 @@ public class FuncionarioRepository {
     }
 
     @SuppressWarnings("deprecation")
+    public Funcionario findByCpfAndSenha(String cpf, String senha) {
+        String sql = "SELECT * FROM funcionario WHERE cpf = ? AND senha = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{cpf, senha}, this::mapRowToFuncionario);
+    }
+
+    @SuppressWarnings("deprecation")
     public List<Funcionario> findByLojasCnpj(String cnpj) {
         String sql = "SELECT f.*, l.* FROM funcionario f " +
                 "JOIN lojas l ON f.lojas_cnpj = l.cnpj " +

@@ -49,4 +49,13 @@ public class FuncionarioServiceImpl implements FuncionarioService{
     public void update(Funcionario funcionario) {
         funcionarioRepository.update(funcionario);
     }
+
+    @Override
+    public Funcionario findByCpfAndSenha(String cpf, String senha) {
+        try {
+            return funcionarioRepository.findByCpfAndSenha(cpf, senha);
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
+    }
 }

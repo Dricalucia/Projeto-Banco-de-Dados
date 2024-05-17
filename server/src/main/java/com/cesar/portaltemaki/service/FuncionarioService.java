@@ -5,6 +5,7 @@ import java.util.List;
 
 public interface FuncionarioService {
     Funcionario findByMatricula(int matricula);
+    Funcionario findByCpfAndSenha(String cpf, String senha);
     List<Funcionario> findAll();
     List<Funcionario> findByLojasCnpj(String cnpj);
     void save(Funcionario funcionario);

@@ -33,6 +33,16 @@ public class FuncionarioController {
         return ResponseEntity.ok(funcionarios);
     }
 
+    @GetMapping("/{cpf}/{senha}")
+    public ResponseEntity<Funcionario> getFuncionarioByCpfAndSenha(@PathVariable String cpf, @PathVariable String senha) {
+        Funcionario funcionario = funcionarioService.findByCpfAndSenha(cpf, senha);
+        if (funcionario != null) {
+            return ResponseEntity.ok(funcionario);
+        } else {
+           return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/loja/{cnpj}")
     public ResponseEntity<List<Funcionario>> getFuncionariosByLojasCnpj(@PathVariable String cnpj) {
         List<Funcionario> funcionarios = funcionarioService.findByLojasCnpj(cnpj);
