@@ -44,4 +44,13 @@ public class ClienteServiceImpl implements ClienteService {
     public void delete(int idCliente) {
         clienteRepository.delete(idCliente);
     }
+
+    @Override
+    public Cliente findByEmailAndSenha(String email, String senha) {
+        try {
+            return clienteRepository.findByEmailAndSenha(email,senha);
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
+    }
 }

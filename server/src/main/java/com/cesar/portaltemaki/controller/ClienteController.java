@@ -2,6 +2,8 @@ package com.cesar.portaltemaki.controller;
 
 import com.cesar.portaltemaki.model.Cliente;
 import com.cesar.portaltemaki.service.ClienteService;
+
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,17 @@ public class ClienteController {
     public ResponseEntity<List<Cliente>> getAllClientes() {
         List<Cliente> clientes = clienteService.findAll();
         return ResponseEntity.ok(clientes);
+    }
+
+    @GetMapping("/{email}/{senha}")
+    public ResponseEntity<Cliente> verificarCliente(@PathVariable String email, @PathVariable String senha) {
+            Cliente cliente = clienteService.findByEmailAndSenha(email, senha);
+            if (cliente != null) {
+                return ResponseEntity.ok(cliente);
+            } else {
+                ResponseEntity.notFound().build();
+            }
+        return null;
     }
 
     @GetMapping("/{idCliente}")

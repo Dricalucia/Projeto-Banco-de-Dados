@@ -7,6 +7,7 @@ import java.util.List;
 public interface ClienteService {
     List<Cliente> findAll();
     Cliente findByClientId(int idCliente);
+    Cliente findByEmailAndSenha(String email, String senha);
     void save(Cliente cliente);
     void update(Cliente cliente);
     void delete(int idCliente);

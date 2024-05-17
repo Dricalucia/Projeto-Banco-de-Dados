@@ -24,6 +24,12 @@ public class ClienteRepository {
         String sql = "SELECT * FROM cliente";
         return jdbcTemplate.query(sql, this::mapRowToCliente);
     }
+    
+    @SuppressWarnings("deprecation")
+    public Cliente findByEmailAndSenha(String email, String senha) {
+        String sql = "SELECT * FROM cliente WHERE email = ? AND senha = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{email, senha}, this::mapRowToCliente);
+    }
 
     public void save(Cliente cliente) {
         String sql = "INSERT INTO cliente (nome, sobrenome, rua, numero, complemento, bairro, cidade, uf, telefone, email, ponto_referencia, senha, observacao, data_cadastro) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
