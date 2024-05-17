@@ -1,1 +1,0 @@
-recomendo usar a pasta "client" para armazenar o projeto feito em react.

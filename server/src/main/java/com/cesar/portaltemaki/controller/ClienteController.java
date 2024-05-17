@@ -3,7 +3,6 @@ package com.cesar.portaltemaki.controller;
 import com.cesar.portaltemaki.model.Cliente;
 import com.cesar.portaltemaki.service.ClienteService;
 
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
