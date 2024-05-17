@@ -1,7 +1,5 @@
 /* Projeto BD Restaurante */
 
-/* Projeto BD Restaurante */
-
 create database restaurante;
 use restaurante;
 
@@ -52,11 +50,11 @@ create table dependentes (
 
 create table cliente (
     idCliente integer auto_increment primary key, 
-	nome varchar(10) not null,
-    sobrenome varchar(10) not null,
-    rua varchar(40) not null,
+	nome varchar(50) not null,
+    sobrenome varchar(50) not null,
+    rua varchar(50) not null,
     numero integer,
-    complemento varchar(30),
+    complemento varchar(50),
     bairro varchar(15) not null,
     cidade varchar(15) not null,
     uf varchar(2) not null,
@@ -83,12 +81,12 @@ create table pedido (
 
  create table categoria (				  # Bebidas, Proteinas, Temperos, Carboidrato
     idCategoria integer auto_increment primary key,
-    descricao varchar(20)
+    descricao varchar(255)
 );
 
 create table item (						# temaki salmão, urumaki, jôjô
     idItem integer auto_increment primary key,
-    nome_item varchar(20),
+    nome_item varchar(100),
     descricao varchar(255),
     ativo boolean,
     preco decimal(10,2),
@@ -102,7 +100,7 @@ create table promocao (
     data_promocao datetime not null default current_timestamp,
     data_validade datetime not null,
     preco decimal(10,2),
-    observacao varchar(100),
+    observacao varchar(255),
     constraint fk_item_idItem_promocao foreign key (item_idItem) references item(idItem),
     primary key (idPromocao, item_idItem, data_promocao)
 );
@@ -125,4 +123,3 @@ create table pedido_itens (
     constraint fk_pedido_nrPedido_pedidos foreign key (pedido_nrPedido) references pedido(nrPedido),
     primary key (cliente_idCliente, pedido_nrPedido)
 );
-
