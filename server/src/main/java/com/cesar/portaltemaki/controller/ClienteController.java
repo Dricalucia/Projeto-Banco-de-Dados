@@ -31,9 +31,9 @@ public class ClienteController {
             if (cliente != null) {
                 return ResponseEntity.ok(cliente);
             } else {
-                ResponseEntity.notFound().build();
+               return ResponseEntity.notFound().build();
             }
-        return null;
+
     }
 
     @GetMapping("/{idCliente}")
