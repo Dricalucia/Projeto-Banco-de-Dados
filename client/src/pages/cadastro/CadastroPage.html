@@ -22,7 +22,7 @@
                     <h2 class="text-center text-black">Bem Vindo!</h2>
                     <p class="text-center text-black">Por favor, preencha os campos abaixo para concluir o seu cadastro.
                     </p>
-                    <form id="login-form" class="needs-validation" novalidate>
+                    <form id="cadastro-form" class="needs-validation" novalidate>
                         <!-- Primeira Parte do Cadastro -->
                         <div id="parte1">
                             <div class="form-group mb-3">
@@ -34,13 +34,11 @@
                                 <div class="invalid-feedback">Por favor, insira seu sobrenome.</div>
                             </div>
                             <div class="form-group mb-3">
-                                <input type="email" class="form-control" id="emailCadastro" placeholder="E-mail"
-                                    required>
+                                <input type="email" class="form-control" id="email" placeholder="E-mail" required>
                                 <div class="invalid-feedback">E-mail inválido. Por favor, insira um e-mail válido.</div>
                             </div>
                             <div class="form-group mb-3">
-                                <input type="password" class="form-control" id="senhaCadastro" placeholder="Senha"
-                                    required>
+                                <input type="password" class="form-control" id="senha" placeholder="Senha" required>
                                 <div class="invalid-feedback">Senha precisa conter no mínimo 8 caracteres.</div>
                             </div>
                             <div class="form-group mb-3">
@@ -52,31 +50,30 @@
                         <!-- Segunda Parte do Cadastro -->
                         <div id="parte2" style="display:none;">
                             <div class="form-group mb-3">
-                                <input type="text" class="form-control" id="CEPCadastro" placeholder="CEP" required>
+                                <input type="text" class="form-control" id="CEP" placeholder="CEP" required>
                                 <div class="invalid-feedback">CEP inválido. Por favor, insira um CEP válido.</div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="enderecoCadastro" placeholder="Endereço"
+                                    <input type="text" class="form-control" id="endereco" placeholder="Endereço"
                                         required>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="number" class="form-control" id="numeroCadastro" placeholder="Número"
-                                        required>
+                                    <input type="number" class="form-control" id="numero" placeholder="Número" required>
                                     <div class="invalid-feedback">Insira número.</div>
                                 </div>
                             </div>
                             <div class="form-group mb-3">
-                                <input type="text" class="form-control" id="bairroCadastro" placeholder="Bairro"
-                                    required>
+                                <input type="text" class="form-control" id="bairro" placeholder="Bairro" required>
                             </div>
                             <div class="form-group mb-3">
-                                <input type="text" class="form-control" id="cidadeCadastro" placeholder="Cidade"
-                                    required>
+                                <input type="text" class="form-control" id="cidade" placeholder="Cidade" required>
                             </div>
                             <div class="form-group mb-3">
-                                <input type="text" class="form-control" id="estadoCadastro" placeholder="Estado"
-                                    required>
+                                <input type="text" class="form-control" id="estado" placeholder="Estado" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" id="complemento" placeholder="Complemento">
                             </div>
                             <div class="form-group mb-3">
                                 <textarea class="form-control" id="pontoReferencia" placeholder="Ponto de referência"
@@ -87,6 +84,24 @@
                         </div>
                         <button type="button" class="btn btn-dark w-50">Login</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal de Confirmação -->
+    <div class="modal fade" id="modalConfirmacao" tabindex="-1" aria-labelledby="modalConfirmacaoLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalConfirmacaoLabel">Cadastro Realizado!</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-success">
+                    <p>Seu cadastro foi realizado com sucesso! Você já pode fazer login.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal" id="irParaLogin">OK</button>
                 </div>
             </div>
         </div>

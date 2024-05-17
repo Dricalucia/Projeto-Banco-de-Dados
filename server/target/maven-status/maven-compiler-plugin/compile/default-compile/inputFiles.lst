@@ -42,6 +42,7 @@ D:\Cesar\Quarto Periodo\Banco de Dados\Projeto-Banco-de-Dados\server\src\main\ja
 D:\Cesar\Quarto Periodo\Banco de Dados\Projeto-Banco-de-Dados\server\src\main\java\com\cesar\portaltemaki\service\FuncionarioService.java
 D:\Cesar\Quarto Periodo\Banco de Dados\Projeto-Banco-de-Dados\server\src\main\java\com\cesar\portaltemaki\service\PromocaoService.java
 D:\Cesar\Quarto Periodo\Banco de Dados\Projeto-Banco-de-Dados\server\src\main\java\com\cesar\portaltemaki\service\DependenteServiceImpl.java
+D:\Cesar\Quarto Periodo\Banco de Dados\Projeto-Banco-de-Dados\server\src\main\java\com\cesar\portaltemaki\config\CorsConfig.java
 D:\Cesar\Quarto Periodo\Banco de Dados\Projeto-Banco-de-Dados\server\src\main\java\com\cesar\portaltemaki\repository\ItensPedidoRepository.java
 D:\Cesar\Quarto Periodo\Banco de Dados\Projeto-Banco-de-Dados\server\src\main\java\com\cesar\portaltemaki\service\ItensPedidoService.java
 D:\Cesar\Quarto Periodo\Banco de Dados\Projeto-Banco-de-Dados\server\src\main\java\com\cesar\portaltemaki\controller\ClienteController.java

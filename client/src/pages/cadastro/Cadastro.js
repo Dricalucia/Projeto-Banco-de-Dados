@@ -1,124 +1,135 @@
-// Passar para segunda parte do formulario
 document.addEventListener('DOMContentLoaded', function () {
     const proximoButton = document.getElementById('proximoButton');
     const cadastrarButton = document.getElementById('cadastrarButton');
     const parte1 = document.getElementById('parte1');
     const parte2 = document.getElementById('parte2');
-    const nome = document.getElementById('nome');
-    const sobrenome = document.getElementById('sobrenome');
-    const emailCadastro = document.getElementById('emailCadastro');
-    const senhaCadastro = document.getElementById('senhaCadastro');
-    const telefone = document.getElementById('telefone');
-    const form = document.querySelector('.needs-validation');
+    const form = document.getElementById('cadastro-form');
 
     proximoButton.addEventListener('click', function (event) {
-        // Força a validação dos campos específicos da primeira parte do formulário
-        let isValid = nome.checkValidity() && sobrenome.checkValidity() &&
-                      emailCadastro.checkValidity() && senhaCadastro.checkValidity() &&
-                      telefone.checkValidity();
+        let isValid = true;
+        const fieldsParte1 = [document.getElementById('nome'), document.getElementById('sobrenome'),
+                              document.getElementById('email'), document.getElementById('senha'),
+                              document.getElementById('telefone')];
 
-        if (!isValid) {
-            event.preventDefault();
-            event.stopPropagation();
-            // Adiciona a classe para mostrar feedback de validação do Bootstrap para cada campo da primeira parte
-            [nome, sobrenome, emailCadastro, senhaCadastro, telefone].forEach(field => {
-                if (!field.checkValidity()) {
-                    field.classList.add('is-invalid');
-                }
-            });
-            form.classList.add('was-validated');
-        } else {
-            // Se os campos são válidos, vai para a segunda parte
+        fieldsParte1.forEach(field => {
+            if (!field.checkValidity()) {
+                isValid = false;
+                field.classList.add('is-invalid');
+            } else {
+                field.classList.remove('is-invalid');
+            }
+        });
+
+        if (isValid) {
             parte1.style.display = 'none';
             parte2.style.display = 'block';
             proximoButton.style.display = 'none';
             cadastrarButton.style.display = 'block';
+        } else {
+            form.classList.add('was-validated');
         }
     });
 
-    form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        form.classList.add('was-validated'); // Assegura que a validação do formulário é mostrada
-    });
-});
+    form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        let isValid = true;
+        const fieldsParte2 = [document.getElementById('CEP'), document.getElementById('endereco'),
+                              document.getElementById('numero'), document.getElementById('bairro'),
+                              document.getElementById('cidade'), document.getElementById('estado')];
 
-
-
-
-
-
-// Incorporação do Script de Exeplo do Bootstrap com Validação de CEP e Preenchimento de Campos de Endereço de forma Assíncrona
-document.addEventListener('DOMContentLoaded', () => {
-    'use strict';
-
-    // Seletores de elementos do DOM
-    const cep = document.querySelector("#CEPCadastro");
-    const endereco = document.querySelector("#enderecoCadastro");
-    const bairro = document.querySelector("#bairroCadastro");
-    const cidade = document.querySelector("#cidadeCadastro");
-    const estado = document.querySelector("#estadoCadastro");
-    const forms = document.querySelectorAll('.needs-validation');
-
-    // Expressões regulares para validar o CEP
-    const validarCep = /^[0-9]+$/;
-    const cepValido = /^[0-9]{8}$/;
-
-    forms.forEach(form => {
-        form.addEventListener('submit', event => {
-            let formIsValid = form.checkValidity();
-
-            // Verifica primeiro a validade do formulário pelo Bootstrap
-            if (!formIsValid) {
-                event.preventDefault();
-                event.stopPropagation();
-                form.classList.add('was-validated'); // Isso vai garantir que o feedback de validação do Bootstrap vai ser exibido
-            }
-
-            // Verificação específica para o campo CEP
-            if (!validarCep.test(cep.value) || !cepValido.test(cep.value)) {
-                event.preventDefault();
-                event.stopPropagation();
-                cep.classList.add('is-invalid');
-                cep.classList.remove('is-valid');
-                cep.nextElementSibling.textContent = 'CEP inválido!';
-                formIsValid = false; // Atualiza o status de validade do formulário
-            }
-
-            if (!formIsValid) {
-                event.preventDefault();
-                event.stopPropagation();
+        fieldsParte2.forEach(field => {
+            if (!field.checkValidity()) {
+                isValid = false;
+                field.classList.add('is-invalid');
+            } else {
+                field.classList.remove('is-invalid');
             }
         });
 
-        cep.addEventListener('focusout', async () => {
+        if (isValid) {
+            const clienteData = {
+                nome: document.getElementById('nome').value,
+                sobrenome: document.getElementById('sobrenome').value,
+                email: document.getElementById('email').value,
+                senha: document.getElementById('senha').value,
+                telefone: document.getElementById('telefone').value,
+                rua: document.getElementById('endereco').value,
+                numero: document.getElementById('numero').value,
+                complemento: document.getElementById('complemento').value,
+                bairro: document.getElementById('bairro').value,
+                cidade: document.getElementById('cidade').value,
+                uf: document.getElementById('estado').value,
+                pontoReferencia: document.getElementById('pontoReferencia').value,
+                obeservacao: 'Observação N/A',
+                dataCadastro: new Date().toISOString()
+            };
+
             try {
-                if (!validarCep.test(cep.value) || !cepValido.test(cep.value)) {
-                    throw new Error('CEP inválido!');
+                const response = await fetch('http://localhost:8080/clientes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(clienteData)
+                });
+
+                if (response.ok) {
+                    $('#modalConfirmacao').modal('show');
+                } else {
+                    throw new Error('Erro ao cadastrar cliente.');
                 }
-
-                const resposta = await fetch(`https://viacep.com.br/ws/${cep.value}/json/`);
-                if (!resposta.ok) throw new Error('Erro ao buscar CEP');
-
-                const dadosCep = await resposta.json();
-                endereco.value = dadosCep.logradouro;
-                bairro.value = dadosCep.bairro;
-                cidade.value = dadosCep.localidade;
-                estado.value = dadosCep.uf;
-                cep.classList.remove('is-invalid');
-                cep.classList.add('is-valid');
             } catch (error) {
-                cep.classList.add('is-invalid');
-                cep.classList.remove('is-valid');
-                cep.nextElementSibling.textContent = error.message;
-
-                endereco.value = '';
-                bairro.value = '';
-                cidade.value = '';
-                estado.value = '';
+                alert(error.message);
             }
-        });
+        } else {
+            form.classList.add('was-validated');
+        }
+    });
+
+    // Vai mandar o usuario para a página de login quando o usuário clicar em OK no modal
+    document.getElementById('irParaLogin').addEventListener('click', function() {
+        window.location.href = '../login/LoginPage.html';
+    });
+
+    // Função para buscar informações de CEP
+    const cep = document.getElementById('CEP');
+    const endereco = document.getElementById('endereco');
+    const bairro = document.getElementById('bairro');
+    const cidade = document.getElementById('cidade');
+    const estado = document.getElementById('estado');
+
+    cep.addEventListener('focusout', async () => {
+        const validarCep = /^[0-9]+$/;
+        const cepValido = /^[0-9]{8}$/;
+
+        try {
+            if (!validarCep.test(cep.value) || !cepValido.test(cep.value)) {
+                throw new Error('CEP inválido!');
+            }
+
+            const resposta = await fetch(`https://viacep.com.br/ws/${cep.value}/json/`);
+            if (!resposta.ok) throw new Error('Erro ao buscar CEP');
+
+            const dadosCep = await resposta.json();
+            if (dadosCep.erro) {
+                throw new Error('CEP não encontrado!');
+            }
+
+            endereco.value = dadosCep.logradouro || '';
+            bairro.value = dadosCep.bairro || '';
+            cidade.value = dadosCep.localidade || '';
+            estado.value = dadosCep.uf || '';
+            cep.classList.remove('is-invalid');
+            cep.classList.add('is-valid');
+        } catch (error) {
+            cep.classList.add('is-invalid');
+            cep.classList.remove('is-valid');
+            cep.nextElementSibling.textContent = error.message;
+
+            endereco.value = '';
+            bairro.value = '';
+            cidade.value = '';
+            estado.value = '';
+        }
     });
 });
