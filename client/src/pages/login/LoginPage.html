@@ -23,18 +23,18 @@
                     <h2 class="text-center text-black">Bem Vindo!</h2>
                     <p class="text-center text-black">Por favor, faça seu login para entrar na plataforma.</p>
                     <form id="login-form" class="needs-validation" novalidate>
-                        <div class="form-group mb-3 pt-5">
-                            <input type="email" class="form-control border border-secondary-subtle" id="emailLogin"
-                                placeholder="E-mail" required>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                            <label for="email">E-mail</label>
                             <div class="invalid-feedback">
-                                E-mail inválido. Por favor, insira um e-mail válido.
+                                E-mail inválido. Você já possui uma conta?
                             </div>
                         </div>
-                        <div class="form-group mb-5">
-                            <input type="password" class="form-control border border-secondary-subtle" id="senhaLogin"
-                                placeholder="Senha" required>
+                        <div class="form-floating mb-5">
+                            <input type="password" class="form-control" id="senha" placeholder="Password" required>
+                            <label for="senha">Senha</label>
                             <div class="invalid-feedback">
-                                Senha incorreta.
+                                Senha ou e-mail incorreto(a).
                             </div>
                         </div>
                         <button type="submit" class="btn btn-dark w-50 mb-2">Login</button>
@@ -48,7 +48,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-
     <!-- Referencia do JavaScript -->
     <script src="Login.js"></script>
 </body>

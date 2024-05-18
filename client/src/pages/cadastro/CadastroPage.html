@@ -25,62 +25,72 @@
                     <form id="cadastro-form" class="needs-validation" novalidate>
                         <!-- Primeira Parte do Cadastro -->
                         <div id="parte1">
-                            <div class="form-group mb-3">
+                            <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="nome" placeholder="Nome" required>
+                                <label for="nome">Nome</label>
                                 <div class="invalid-feedback">Por favor, insira seu nome.</div>
                             </div>
-                            <div class="form-group mb-3">
+                            <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="sobrenome" placeholder="Sobrenome" required>
+                                <label for="sobrenome">Sobrenome</label>
                                 <div class="invalid-feedback">Por favor, insira seu sobrenome.</div>
                             </div>
-                            <div class="form-group mb-3">
+                            <div class="form-floating mb-3">
                                 <input type="email" class="form-control" id="email" placeholder="E-mail" required>
+                                <label for="email">E-mail</label>
                                 <div class="invalid-feedback">E-mail inválido. Por favor, insira um e-mail válido.</div>
                             </div>
-                            <div class="form-group mb-3">
+                            <div class="form-floating mb-3">
                                 <input type="password" class="form-control" id="senha" placeholder="Senha" required>
+                                <label for="senha">Senha</label>
                                 <div class="invalid-feedback">Senha precisa conter no mínimo 8 caracteres.</div>
                             </div>
-                            <div class="form-group mb-3">
+                            <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="telefone" placeholder="Telefone" required>
+                                <label for="telefone">Telefone</label>
                                 <div class="invalid-feedback">Por favor, insira um número de telefone válido.</div>
                             </div>
                             <button type="button" class="btn btn-dark w-50 mb-2" id="proximoButton">Próximo</button>
                         </div>
                         <!-- Segunda Parte do Cadastro -->
                         <div id="parte2" style="display:none;">
-                            <div class="form-group mb-3">
+                            <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="CEP" placeholder="CEP" required>
+                                <label for="CEP">CEP</label>
                                 <div class="invalid-feedback">CEP inválido. Por favor, insira um CEP válido.</div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" id="endereco" placeholder="Endereço"
-                                        required>
+                                <div class="col-md-8 form-floating">
+                                    <input type="text" class="form-control" id="endereco" placeholder="Endereço" required>
+                                    <label for="endereco">Endereço</label>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 form-floating">
                                     <input type="number" class="form-control" id="numero" placeholder="Número" required>
-                                    <div class="invalid-feedback">Insira número.</div>
+                                    <label for="numero">N°</label>
+                                    <div class="invalid-feedback">Insira N°.</div>
                                 </div>
                             </div>
-                            <div class="form-group mb-3">
+                            <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="bairro" placeholder="Bairro" required>
+                                <label for="bairro">Bairro</label>
                             </div>
-                            <div class="form-group mb-3">
+                            <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="cidade" placeholder="Cidade" required>
+                                <label for="cidade">Cidade</label>
                             </div>
-                            <div class="form-group mb-3">
+                            <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="estado" placeholder="Estado" required>
+                                <label for="estado">Estado</label>
                             </div>
-                            <div class="form-group mb-3">
+                            <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="complemento" placeholder="Complemento">
+                                <label for="complemento">Complemento</label>
                             </div>
-                            <div class="form-group mb-3">
-                                <textarea class="form-control" id="pontoReferencia" placeholder="Ponto de referência"
-                                    style="resize: none;"></textarea>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="pontoReferencia" placeholder="Ponto de referência" style="resize: none;"></textarea>
+                                <label for="pontoReferencia">Ponto de referência</label>
                             </div>
-                            <button type="submit" class="btn btn-dark w-50 mb-2 d-block mx-auto"
-                                id="cadastrarButton">Cadastrar!</button>
+                            <button type="submit" class="btn btn-dark w-50 mb-2 d-block mx-auto" id="cadastrarButton">Cadastrar!</button>
                         </div>
                         <button type="button" class="btn btn-dark w-50">Login</button>
                     </form>
@@ -89,8 +99,7 @@
         </div>
     </div>
     <!-- Modal de Confirmação -->
-    <div class="modal fade" id="modalConfirmacao" tabindex="-1" aria-labelledby="modalConfirmacaoLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="modalConfirmacao" tabindex="-1" aria-labelledby="modalConfirmacaoLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-dark text-white">
                 <div class="modal-header">
