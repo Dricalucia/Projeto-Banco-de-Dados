@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #232323;
+    color: white;
+}
+
+.img-fluid {
+    max-width: 50%;
+    max-height: 50%;
+}
+
+h2 {
+    font-weight: 700;
+}
+
+.login-card {
+    max-width: 460px;
+}
+
+.form-control {
+    background-color: #c8c8c8;
+    border-color: #000000;
+}

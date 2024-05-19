@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Vai mandar o usuario para a página de login quando o usuário clicar em OK no modal
     document.getElementById('irParaLogin').addEventListener('click', function() {
-        window.location.href = '../login/LoginPage.html';
+        window.location.href = '../login/cliente/LoginCliente.html';
     });
 
     // Função para buscar informações de CEP
