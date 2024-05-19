@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const response = await fetch(url, { method: "GET" });
       if (response.ok) {
         const user = await response.json();
+        sessionStorage.setItem('userToken', user.token); // Salvar o token no sessionStorage
         const redirectUrl = "../../funcionario/PedidosEmAberto.html";
         window.location.href = redirectUrl;
       } else {
