@@ -1,0 +1,16 @@
+.card-body {
+    height: 300px; /* Define a altura fixa do card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.descricaoProduto {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Define o número máximo de linhas */
+    -webkit-box-orient: vertical;
+    height: 4.5em; /* Define a altura que acomoda 3 linhas de texto */
+    margin-bottom: 1em;
+}
