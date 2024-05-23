@@ -1,117 +1,119 @@
-/* Scripts SQL Avançado 
- * Relatorios
- */
+/* Scripts SQL Avançado - RELATORIOS  */
 
 
 /* View para listar todos os pedidos que estão com status 'em aberto' */
 /* para ser usado na tela de funcionarios */
-CREATE VIEW vw_pedidos_pendentes AS
-SELECT
+create view vw_pedidos_pendentes as
+select
     nrPedido,
     data_hora_pedido,
     valor_total_pedido,
     status_pedido
-FROM pedido
-WHERE status_pedido <> 'Concluido' -- definir os niveis de status: Em aberto, Em preparo, Saída para entrega, Concluido
-ORDER BY nrPedido;  
+from pedido
+where status_pedido <> 'Concluido' -- definir os niveis de status: Em aberto, Em preparo, Saída para entrega, Concluído
+order by nrPedido;  
 
 
-SELECT * FROM vw_pedidos_pendentes; -- chamada da view
+select * from vw_pedidos_pendentes; -- chamada da view
 
 /* Visualizar os detalhes do pedido */
-SELECT
+select
     p.nrPedido,
     p.data_hora_pedido,
     p.valor_total_pedido,
-    c.nome AS nome_cliente,
-    c.sobrenome AS sobrenome_cliente,
-    i.nome_item AS item,
-    pi.qtde_item AS qtde,
-    i.preco AS Preco,
+    c.nome as nome_cliente,
+    c.sobrenome as sobrenome_cliente,
+    i.nome_item as item,
+	pit.qtde_item as qtde,
+    i.preco as Preco,
     p.data_hora_prevista_entrega,
     p.data_hora_saida_entrega,
     p.data_hora_entrega
-FROM pedido p
-JOIN pedido_cliente pc ON p.nrPedido = pc.pedido_nrPedido
-JOIN cliente c ON pc.cliente_idCliente = c.idCliente
-JOIN pedido_itens pi ON p.nrPedido = pi.pedido_nrPedido
-JOIN item i ON pi.item_idItem = i.idItem
-WHERE p.nrPedido = ?; -- Substituir '?' pelo parametro do nrPedido, que será passado na lista de pedido
+from pedido p
+join pedido_cliente pc on p.nrPedido = pc.pedido_nrPedido
+join cliente c on pc.cliente_idCliente = c.idCliente
+join pedido_itens pit on p.nrPedido = pit.pedido_nrPedido
+join item i on pit.item_idItem = i.idItem
+where p.nrPedido = ?; -- substituir '?' pelo parametro do nrpedido, que será passado na lista de pedido
 
 
 /* Função para exibir a lista de pedidos por determinado periodo
- * Data inicial e final devem ser passados como paramentros  */
-DELIMITER $$
-CREATE FUNCTION fn_pedidos_por_periodo(@data_inicial DATE, @data_final DATE)
-RETURNS TABLE
-AS
-BEGIN
-    RETURN (
-        SELECT
+ * data inicial e final devem ser passados como paramentros  */
+delimiter $$
+create function fn_pedidos_por_periodo(@data_inicial date, @data_final date)
+returns table
+as
+begin
+    return (
+        select
             p.nrPedido as Nr_pedido,
             p.data_hora_pedido as Data_Hora_Pedido,
-            p.valor_total_pedido as Valor_Total_Pedido,
-            c.nome AS nome_cliente,
-            c.sobrenome AS sobrenome_cliente
-        FROM pedido p
-        JOIN pedido_cliente pc ON p.nrPedido = pc.pedido_nrPedido
-		JOIN cliente c ON pc.cliente_idCliente = c.idCliente
-        WHERE p.data_hora_pedido BETWEEN @data_inicial AND @data_final
+            p.valor_total_pedido as Total_Pedido,
+            c.nome as nome_cliente,
+            c.sobrenome as sobrenome_cliente
+        from pedido p
+        join pedido_cliente pc on p.nrPedido = pc.pedido_nrPedido
+		join cliente c on pc.cliente_idCliente = c.idCliente
+        where p.data_hora_pedido between @data_inicial and @data_final
     );
-END $$
-DELIMITER ;
+end $$
+delimiter ;
 
-SELECT *
-FROM fn_pedidos_por_periodo(?, ?); -- substituir '?' por variaveis que tenha a data inicial e final da seleção de pedidos
+select *
+from fn_pedidos_por_periodo(?, ?); -- substituir '?' por variaveis que tenha a data inicial e final da seleção de pedidos
 
 /* Função para exibir a lista de pedidos por cliente e determinado periodo
- * Data inicial e final devem ser passados como paramentros  */
-DELIMITER $$
-CREATE FUNCTION fn_pedidos_por_periodo(@data_inicial DATE, @data_final DATE, @cliente_id INT)
-RETURNS TABLE
-AS
-BEGIN
-    RETURN (
-        SELECT
-            p.nrPedido AS Nr_pedido,
-            p.data_hora_pedido AS Data_Hora_Pedido,
-            p.valor_total_pedido AS Valor_Total_Pedido,
-            c.nome AS Nome_Cliente,
-            c.sobrenome AS Sobrenome_Cliente
-        FROM pedido p
-        JOIN pedido_cliente pc ON p.nrPedido = pc.pedido_nrPedido
-        JOIN cliente c ON pc.cliente_idCliente = c.idCliente
-        WHERE p.data_hora_pedido BETWEEN @data_inicial AND @data_final
-          AND c.idCliente = @cliente_id
+ * data inicial e final devem ser passados como paramentros  */
+delimiter $$
+create function fn_pedidos_cliente_por_periodo(@data_inicial date, @data_final date, @cliente_id int)
+returns table
+as
+begin
+    return (
+        select
+            p.nrPedido as nr_Pedido,
+            p.data_hora_pedido as data_hora_pedido,
+            p.valor_total_pedido as total_pedido,
+            c.nome as nome_cliente,
+            c.sobrenome as sobrenome_cliente
+        from pedido p
+        join pedido_cliente pc on p.nrPedido = pc.pedido_nrPedido
+        join cliente c on pc.cliente_idCliente = c.idCliente
+        where p.data_hora_pedido between @data_inicial and @data_final
+          and c.idCliente = @cliente_id
     );
-END $$
-DELIMITER ;
+end $$
+delimiter ;
 
 -- chamada da função
-SELECT *
-FROM fn_pedidos_por_periodo(?, ?); -- substituir '?' por variaveis que tenha a data inicial e final e o codigo do cliente
+select *
+from fn_pedidos_cliente_por_periodo(?, ?, ?); -- substituir '?' por variaveis que tenha a data inicial e final e o codigo do cliente
 
 
-/* Script para uso Trigger */
-/* Criação de uma tabela log_item para registrar as alterações do cadastro dos itens
- */
-DELIMITER $$
-CREATE TRIGGER tr_item_to_log_itens
-AFTER UPDATE ON item
-FOR EACH ROW
-BEGIN
-    INSERT INTO log_itens (idItem, nome_item, descricao, ativo, preco, categoria_idCategoria)
-    VALUES (NEW.idItem, NEW.nome_item, NEW.descricao, NEW.ativo, NEW.preco, NEW.categoria_idCategoria);
-END $$
-DELIMITER ;
+/* listar o pedido de maior valor realizado em determinado periodo */
+select p.data_hora_pedido, pc.pedido_nrPedido, c.nome as nome_cliente, c.sobrenome as sobrenome_cliente, p.valor_total_pedido
+from pedido_cliente pc
+join cliente c on pc.cliente_idCliente = c.idCliente
+join pedido p on pc.pedido_nrPedido = p.nrPedido
+where p.valor_total_pedido = (
+    select max(valor_total_pedido)
+    from pedido
+    where data_hora_pedido between ? and ?        -- substituir '?' por variaveis que tenha a data inicial e final
+)
+limit 1;
 
-/* Criar a tabela de Log da tabela item */
-create table log_itens (						
-    idItem integer,
-    nome_item varchar(20),
-    descricao varchar(255),
-    ativo boolean,
-    preco decimal(10,2),
-    categoria_idCategoria integer,
-    constraint fk_categoria_idCategoria foreign key (categoria_idCategoria) references categoria(idCategoria)
-);
+/* Listar por cliente a quantidade de pedidos realizados em determinado periodo */
+select c.nome as nome_cliente, c.sobrenome as sobrenome_cliente, count(pc.pedido_nrPedido) as quantidade_pedidos
+from pedido_cliente pc
+join cliente c on pc.cliente_idCliente = c.idCliente
+join pedido p on pc.pedido_nrPedido = p.nrPedido
+where p.data_hora_pedido between ? and ?        -- substituir '?' por variaveis que tenha a data inicial e final
+group by c.nome;
+
+/* Listar o total de vendas por item determinado periodo */
+select pit.item_idItem, i.nome_item, sum(pit.qtde_item) as total_vendas
+from pedido_itens pit
+join item i on pit.item_idItem = i.idItem
+join pedido p on pit.pedido_nrPedido = p.nrPedido
+where p.data_hora_pedido between ? and ?        -- substituir '?' por variaveis que tenha a data inicial e final
+group by pit.item_idItem, i.nome_item;
