@@ -7,8 +7,10 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+
 @Service
-public class PedidoClienteServiceImpl implements PedidoClienteService{
+public class PedidoClienteServiceImpl implements PedidoClienteService {
     @Autowired
     private final PedidoClienteRepository pedidoClienteRepository;
 
@@ -38,5 +40,25 @@ public class PedidoClienteServiceImpl implements PedidoClienteService{
         } catch (EmptyResultDataAccessException ex) {
             return null;
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> getPedidoDetalhes(int nrPedido) {
+        return pedidoClienteRepository.findPedidoDetailsByNrPedido(nrPedido);
+    }
+
+    @Override
+    public List<Map<String, Object>> getPedidoClientePorPeriodo(String dataInicial, String dataFinal, int idCliente) {
+        return pedidoClienteRepository.findPedidosPorClienteNoPeriodo(dataInicial, dataFinal, idCliente);
+    }
+
+    @Override
+    public List<Map<String, Object>> getPedidoClienteCountEntreDatas(String dataInicial, String dataFinal) {
+        return pedidoClienteRepository.findPedidoClienteCountEntreDatas(dataInicial, dataFinal);
+    }
+
+    @Override
+    public List<Map<String, Object>> getPedidoComTotalMaxEntreDatas(String dataInicial, String dataFinal) {
+        return pedidoClienteRepository.findPedidoComTotalMaxEntreDatas(dataInicial, dataFinal);
     }
 }

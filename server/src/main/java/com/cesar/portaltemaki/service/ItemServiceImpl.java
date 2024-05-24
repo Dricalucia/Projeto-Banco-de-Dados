@@ -6,6 +6,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ItemServiceImpl implements ItemService{
@@ -47,5 +48,10 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public List<Item> findItemsByCategoria(int idCategoria) {
         return itemRepository.findItemsByCategoria(idCategoria);
+    }
+
+    @Override
+    public List<Map<String, Object>> findQuantidadeItensVendidosEntreDatas(String dataInicial, String dataFinal) {
+        return itemRepository.findQuantidadeItensVendidosEntreDatas(dataInicial, dataFinal);
     }
 }

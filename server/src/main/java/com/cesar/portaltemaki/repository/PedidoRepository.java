@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class PedidoRepository {
@@ -49,6 +50,17 @@ public class PedidoRepository {
                 pedido.getDataHoraSaidaEntrega(), pedido.getDataHoraEntrega(), pedido.getStatusPedido(),
                 pedido.getCanalSolicitacaoPedido(), pedido.getCanalEntrega(), pedido.getFormaPagamento(),
                 pedido.getValorTotalPedido(), pedido.getNrPedido());
+    }
+
+    public List<Map<String, Object>> findPedidosByPeriodo(String dataInicial, String dataFinal) {
+        String sql = "CALL sp_pedidos_por_periodo(?, ?)";
+        return jdbcTemplate.queryForList(sql, dataInicial, dataFinal);
+    }
+
+    public List<Map<String, Object>> findPedidosPendentes() {
+        String sql = "SELECT nrPedido, data_hora_pedido, valor_total_pedido, status_pedido " +
+                 "FROM vw_pedidos_pendentes";
+        return jdbcTemplate.queryForList(sql);
     }
 
     private Pedido mapRowToPedido(ResultSet rs, int rowNum) throws SQLException {

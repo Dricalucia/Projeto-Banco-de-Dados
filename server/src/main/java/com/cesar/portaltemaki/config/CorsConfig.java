@@ -1,4 +1,4 @@
-package main.java.com.cesar.portaltemaki.config;
+package com.cesar.portaltemaki.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
