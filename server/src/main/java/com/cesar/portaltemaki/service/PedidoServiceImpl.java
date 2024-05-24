@@ -6,6 +6,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 @Service
 public class PedidoServiceImpl implements PedidoService{
     private final PedidoRepository pedidoRepository;
@@ -42,5 +43,10 @@ public class PedidoServiceImpl implements PedidoService{
     @Override
     public void updatePedido(Pedido pedido) {
         pedidoRepository.update(pedido);
+    }
+
+    @Override
+    public List<Map<String, Object>> findPedidosPorPeriodo(String dataInicial, String dataFinal) {
+        return pedidoRepository.findPedidosByPeriodo(dataInicial, dataFinal);
     }
 }

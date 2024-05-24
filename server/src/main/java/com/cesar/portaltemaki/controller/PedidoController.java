@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -51,6 +52,16 @@ public class PedidoController {
             pedido.setNrPedido(nrPedido);
             pedidoService.updatePedido(pedido);
             return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/por-periodo/{dataInicial}/{dataFinal}")
+    public ResponseEntity<List<Map<String, Object>>> findPedidosPorPeriodo(@PathVariable String dataInicial, @PathVariable String dataFinal) {
+        List<Map<String, Object>> pedidos = pedidoService.findPedidosPorPeriodo(dataInicial, dataFinal);
+        if (!pedidos.isEmpty()) {
+            return ResponseEntity.ok(pedidos);
         } else {
             return ResponseEntity.notFound().build();
         }
