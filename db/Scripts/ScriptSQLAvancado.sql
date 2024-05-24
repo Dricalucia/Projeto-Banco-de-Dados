@@ -1,5 +1,5 @@
-/* Scripts SQL Avançado - RELATORIOS  */
-
+	/* Scripts SQL Avançado - RELATORIOS  */
+	
 
 /* View para listar todos os pedidos que estão com status 'em aberto' */
 /* para ser usado na tela de funcionarios */
@@ -15,7 +15,7 @@ order by nrPedido;
 
 
 select * from vw_pedidos_pendentes; -- chamada da view
-
+select * from pedido p;
 /* Visualizar os detalhes do pedido */
 select
     p.nrPedido,
@@ -36,84 +36,75 @@ join pedido_itens pit on p.nrPedido = pit.pedido_nrPedido
 join item i on pit.item_idItem = i.idItem
 where p.nrPedido = ?; -- substituir '?' pelo parametro do nrpedido, que será passado na lista de pedido
 
+-- essa procedure retorna os pedidos realizados dentro de um determinado período de tempo
+CREATE PROCEDURE sp_pedidos_por_periodo(IN data_inicial DATETIME, IN data_final DATETIME)
+BEGIN
+    SELECT
+        p.nrPedido AS Nr_pedido,
+        p.data_hora_pedido AS Data_Hora_Pedido,
+        p.valor_total_pedido AS Total_Pedido,
+        c.nome AS Nome_Cliente,
+        c.sobrenome AS Sobrenome_Cliente
+    FROM
+        pedido p
+        JOIN pedido_cliente pc ON p.nrPedido = pc.pedido_nrPedido
+        JOIN cliente c ON pc.cliente_idCliente = c.idCliente
+    WHERE
+        p.data_hora_pedido BETWEEN data_inicial AND data_final;
+END;
 
-/* Função para exibir a lista de pedidos por determinado periodo
- * data inicial e final devem ser passados como paramentros  */
-delimiter $$
-create function fn_pedidos_por_periodo(@data_inicial date, @data_final date)
-returns table
-as
-begin
-    return (
-        select
-            p.nrPedido as Nr_pedido,
-            p.data_hora_pedido as Data_Hora_Pedido,
-            p.valor_total_pedido as Total_Pedido,
-            c.nome as nome_cliente,
-            c.sobrenome as sobrenome_cliente
-        from pedido p
-        join pedido_cliente pc on p.nrPedido = pc.pedido_nrPedido
-		join cliente c on pc.cliente_idCliente = c.idCliente
-        where p.data_hora_pedido between @data_inicial and @data_final
-    );
-end $$
-delimiter ;
 
-select *
-from fn_pedidos_por_periodo(?, ?); -- substituir '?' por variaveis que tenha a data inicial e final da seleção de pedidos
 
-/* Função para exibir a lista de pedidos por cliente e determinado periodo
- * data inicial e final devem ser passados como paramentros  */
-delimiter $$
-create function fn_pedidos_cliente_por_periodo(@data_inicial date, @data_final date, @cliente_id int)
-returns table
-as
-begin
-    return (
-        select
-            p.nrPedido as nr_Pedido,
-            p.data_hora_pedido as data_hora_pedido,
-            p.valor_total_pedido as total_pedido,
-            c.nome as nome_cliente,
-            c.sobrenome as sobrenome_cliente
-        from pedido p
-        join pedido_cliente pc on p.nrPedido = pc.pedido_nrPedido
-        join cliente c on pc.cliente_idCliente = c.idCliente
-        where p.data_hora_pedido between @data_inicial and @data_final
-          and c.idCliente = @cliente_id
-    );
-end $$
-delimiter ;
+DELIMITER $$
+	
+-- essa procedure retorna os pedidos realizados por um cliente específico dentro de um determinado período de tempo
+CREATE PROCEDURE sp_pedidos_cliente_por_periodo(IN data_inicial DATE, IN data_final DATE, IN cliente_id INT)
+BEGIN
+    SELECT
+        p.nrPedido AS nr_Pedido,
+        p.data_hora_pedido AS data_hora_pedido,
+        p.valor_total_pedido AS total_pedido,
+        c.nome AS nome_cliente,
+        c.sobrenome AS sobrenome_cliente
+    FROM
+        pedido p
+        JOIN pedido_cliente pc ON p.nrPedido = pc.pedido_nrPedido
+        JOIN cliente c ON pc.cliente_idCliente = c.idCliente
+    WHERE
+        p.data_hora_pedido BETWEEN data_inicial AND data_final
+        AND c.idCliente = cliente_id;
+END $$
 
--- chamada da função
-select *
-from fn_pedidos_cliente_por_periodo(?, ?, ?); -- substituir '?' por variaveis que tenha a data inicial e final e o codigo do cliente
-
+DELIMITER ;
 
 /* listar o pedido de maior valor realizado em determinado periodo */
-select p.data_hora_pedido, pc.pedido_nrPedido, c.nome as nome_cliente, c.sobrenome as sobrenome_cliente, p.valor_total_pedido
-from pedido_cliente pc
-join cliente c on pc.cliente_idCliente = c.idCliente
-join pedido p on pc.pedido_nrPedido = p.nrPedido
-where p.valor_total_pedido = (
-    select max(valor_total_pedido)
-    from pedido
-    where data_hora_pedido between ? and ?        -- substituir '?' por variaveis que tenha a data inicial e final
+
+SELECT p.data_hora_pedido, pc.pedido_nrPedido, c.nome AS nome_cliente, c.sobrenome AS sobrenome_cliente, p.valor_total_pedido
+FROM pedido_cliente pc
+JOIN cliente c ON pc.cliente_idCliente = c.idCliente
+JOIN pedido p ON pc.pedido_nrPedido = p.nrPedido
+WHERE p.valor_total_pedido = (
+    SELECT MAX(valor_total_pedido)
+    FROM pedido
+    WHERE data_hora_pedido BETWEEN ? AND ? -- substituir '?' por variaveis que tenha a data inicial e final
 )
-limit 1;
+)
+LIMIT 1;
+
 
 /* Listar por cliente a quantidade de pedidos realizados em determinado periodo */
-select c.nome as nome_cliente, c.sobrenome as sobrenome_cliente, count(pc.pedido_nrPedido) as quantidade_pedidos
-from pedido_cliente pc
-join cliente c on pc.cliente_idCliente = c.idCliente
-join pedido p on pc.pedido_nrPedido = p.nrPedido
-where p.data_hora_pedido between ? and ?        -- substituir '?' por variaveis que tenha a data inicial e final
-group by c.nome;
+SELECT c.nome AS nome_cliente, c.sobrenome AS sobrenome_cliente, COUNT(pc.pedido_nrPedido) AS quantidade_pedidos
+FROM pedido_cliente pc
+JOIN cliente c ON pc.cliente_idCliente = c.idCliente
+JOIN pedido p ON pc.pedido_nrPedido = p.nrPedido
+WHERE p.data_hora_pedido BETWEEN ? AND ? -- substituir '?' por variaveis que tenha a data inicial e final
+GROUP BY c.nome, c.sobrenome;
+
 
 /* Listar o total de vendas por item determinado periodo */
-select pit.item_idItem, i.nome_item, sum(pit.qtde_item) as total_vendas
-from pedido_itens pit
-join item i on pit.item_idItem = i.idItem
-join pedido p on pit.pedido_nrPedido = p.nrPedido
-where p.data_hora_pedido between ? and ?        -- substituir '?' por variaveis que tenha a data inicial e final
-group by pit.item_idItem, i.nome_item;
+SELECT pit.item_idItem, i.nome_item, SUM(pit.qtde_item) AS total_vendas
+FROM pedido_itens pit
+JOIN item i ON pit.item_idItem = i.idItem
+JOIN pedido p ON pit.pedido_nrPedido = p.nrPedido
+WHERE p.data_hora_pedido BETWEEN ? AND ? -- substituir '?' por variaveis que tenha a data inicial e final
+GROUP BY pit.item_idItem, i.nome_item;
