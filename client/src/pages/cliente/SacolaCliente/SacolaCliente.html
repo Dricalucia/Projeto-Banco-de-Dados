@@ -29,6 +29,48 @@
         <button id="confirmarPedidoButton" class="btn btn-success">Confirmar Pedido</button>
     </div>
 
+    <!-- Modal de confirmação de endereço -->
+    <div class="modal fade" id="confirmarEnderecoModal" tabindex="-1" aria-labelledby="confirmarEnderecoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmarEnderecoModalLabel">Confirmar Endereço</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="enderecoCliente"></p>
+                    <button id="ajustarEnderecoButton" class="btn btn-secondary">Ajustar Endereço</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="confirmarEnderecoButton">Confirmar Endereço</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de pagamento -->
+    <div class="modal fade" id="pagamentoModal" tabindex="-1" aria-labelledby="pagamentoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pagamentoModalLabel">Forma de Pagamento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="formaPagamento">Escolha a forma de pagamento:</label>
+                    <select class="form-select" id="formaPagamento">
+                        <option value="dinheiro">Dinheiro</option>
+                        <option value="cartao">Cartão</option>
+                        <option value="pix">Pix</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="confirmarPagamentoButton">Confirmar Pagamento</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal de confirmação -->
     <div class="modal fade" id="confirmacaoModal" tabindex="-1" role="dialog" aria-labelledby="confirmacaoModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

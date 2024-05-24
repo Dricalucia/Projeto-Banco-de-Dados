@@ -21,6 +21,15 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     // Confirma o envio do pedido
     document.getElementById('confirmarPedidoButton').addEventListener('click', confirmarPedido);
+
+    // Botão de ajustar endereço
+    document.getElementById('ajustarEnderecoButton').addEventListener('click', ajustarEndereco);
+
+    // Botão de confirmar endereço
+    document.getElementById('confirmarEnderecoButton').addEventListener('click', abrirModalPagamento);
+
+    // Botão de confirmar pagamento
+    document.getElementById('confirmarPagamentoButton').addEventListener('click', enviarPedido);
 });
 
 function loadSacolaItems() {
@@ -92,12 +101,47 @@ function confirmarPedido() {
         return;
     }
 
+    // Exibir modal de confirmação de endereço
+    fetch(`http://localhost:8080/clientes/${loggedInUser.idCliente}`)
+        .then(response => response.json())
+        .then(cliente => {
+            const enderecoCliente = `
+                ${cliente.rua}, ${cliente.numero} - ${cliente.bairro}<br>
+                ${cliente.cidade} - ${cliente.uf}<br>
+                Complemento: ${cliente.complemento}<br>
+                Ponto de Referência: ${cliente.pontoReferencia}
+            `;
+            document.getElementById('enderecoCliente').innerHTML = enderecoCliente;
+            $('#confirmarEnderecoModal').modal('show');
+        })
+        .catch(error => {
+            console.error('Erro ao buscar endereço do cliente:', error);
+            alert('Erro ao buscar endereço do cliente. Por favor, tente novamente.');
+        });
+}
+
+function ajustarEndereco() {
+    window.location.href = '/Projeto-Banco-de-Dados/client/src/pages/cliente/configuracoesDeContaCliente/configuracoesDeContaCliente.html';
+}
+
+function abrirModalPagamento() {
+    $('#confirmarEnderecoModal').modal('hide');
+    $('#pagamentoModal').modal('show');
+}
+
+function enviarPedido() {
+    const sacolaItems = JSON.parse(localStorage.getItem('sacola')) || [];
+    const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    const formaPagamento = document.getElementById('formaPagamento').value;
+
     const pedido = {
-        clienteIdCliente: loggedInUser.idCliente, // Utiliza o ID do cliente logado
-        itens: sacolaItems.map(item => ({
-            itemIdItem: item.idItem,
-            quantidadeItem: item.quantidade
-        }))
+        nrPedido: Math.floor(Math.random() * 100000), // ID aleatório para o pedido
+        dataHoraPedido: new Date().toISOString(),
+        statusPedido: 'Em Aberto',
+        canalSolicitacaoPedido: 'site',
+        canalEntrega: 'domicilio',
+        formaPagamento: formaPagamento,
+        valorTotalPedido: sacolaItems.reduce((total, item) => total + item.precoItem * item.quantidade, 0)
     };
 
     // Envia o pedido para o backend
@@ -108,14 +152,44 @@ function confirmarPedido() {
         },
         body: JSON.stringify(pedido)
     })
-    .then(response => {
-        if (response.ok) {
-            $('#confirmacaoModal').modal('show');
-            localStorage.removeItem('sacola'); // Limpa a sacola após envio do pedido
-            loadSacolaItems(); // Atualiza a sacola
-        } else {
-            alert('Erro ao enviar o pedido. Por favor, tente novamente.');
-        }
+    .then(response => response.json())
+    .then(async pedidoCriado => {
+        const pedidoCliente = {
+            clienteIdCliente: loggedInUser.idCliente,
+            pedidoNrPedido: pedidoCriado.nrPedido
+        };
+
+        await fetch('http://localhost:8080/pedido-cliente', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(pedidoCliente)
+        });
+        return pedidoCriado.nrPedido;
+    })
+    .then(nrPedido => {
+        const itensPedidos = sacolaItems.map(item => ({
+            pedidoNrPedido: nrPedido,
+            itemIdItem: item.idItem,
+            quantidadeItem: item.quantidade
+        }));
+
+        return Promise.all(itensPedidos.map(itensPedido => {
+            return fetch('http://localhost:8080/itens-pedido', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(itensPedido)
+            });
+        }));
+    })
+    .then(() => {
+        $('#pagamentoModal').modal('hide');
+        $('#confirmacaoModal').modal('show');
+        localStorage.removeItem('sacola'); // Limpa a sacola após envio do pedido
+        loadSacolaItems(); // Atualiza a sacola
     })
     .catch(error => {
         console.error('Erro ao enviar pedido:', error);
