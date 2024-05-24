@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações de Conta Cliente</title>
+    <!-- CSS e Icones do Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Referencia do CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="header-container"></div>
+    <div class="container mt-5">
+        <div id="alert-container"></div> <!-- Container para os alertas -->
+        <h1>Configurações de Conta</h1>
+        <div class="container-fluid mt-4 rounded-2 border border-black shadow-lg d-flex justify-content-center gap-3 p-3"
+            style="width: auto;">
+            <button class="btn btn-dark shadow-lg" data-bs-toggle="modal" data-bs-target="#alterarEmailModal">Alterar
+                E-mail</button>
+            <button class="btn btn-dark shadow-lg" data-bs-toggle="modal" data-bs-target="#alterarSenhaModal">Alterar
+                Senha</button>
+            <button class="btn btn-dark shadow-lg" data-bs-toggle="modal" data-bs-target="#alterarEnderecoModal">Alterar
+                Endereço</button>
+            <button class="btn btn-outline-danger shadow-lg" data-bs-toggle="modal"
+                data-bs-target="#excluirContaModal">Excluir Conta</button>
+        </div>
+    </div>
+
+    <!-- Modais -->
+    <!-- Modal Alterar E-mail -->
+    <div class="modal fade" id="alterarEmailModal" tabindex="-1" aria-labelledby="alterarEmailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alterarEmailModalLabel">Alterar E-mail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="alterarEmailForm">
+                        <div class="mb-3">
+                            <label for="emailAtual" class="form-label">E-mail atual</label>
+                            <input type="email" class="form-control" id="emailAtual" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="novoEmail" class="form-label">Novo e-mail</label>
+                            <input type="email" class="form-control" id="novoEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="senhaEmail" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="senhaEmail" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Alterar Senha -->
+    <div class="modal fade" id="alterarSenhaModal" tabindex="-1" aria-labelledby="alterarSenhaModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alterarSenhaModalLabel">Alterar Senha</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="alterarSenhaForm">
+                        <div class="mb-3">
+                            <label for="emailSenha" class="form-label">E-mail atual</label>
+                            <input type="email" class="form-control" id="emailSenha" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="senhaAtual" class="form-label">Senha atual</label>
+                            <input type="password" class="form-control" id="senhaAtual" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="novaSenha" class="form-label">Nova senha</label>
+                            <input type="password" class="form-control" id="novaSenha" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Alterar Endereço -->
+    <div class="modal fade" id="alterarEnderecoModal" tabindex="-1" aria-labelledby="alterarEnderecoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alterarEnderecoModalLabel">Alterar Endereço</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="alterarEnderecoForm">
+                        <div class="mb-3">
+                            <label for="novoCEP" class="form-label">Novo CEP</label>
+                            <input type="text" class="form-control" id="novoCEP" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="novaRua" class="form-label">Nova Rua</label>
+                            <input type="text" class="form-control" id="novaRua" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="novoNumero" class="form-label">Novo Número</label>
+                            <input type="text" class="form-control" id="novoNumero" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="novoBairro" class="form-label">Novo Bairro</label>
+                            <input type="text" class="form-control" id="novoBairro" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="novoComplemento" class="form-label">Novo Complemento</label>
+                            <input type="text" class="form-control" id="novoComplemento">
+                        </div>
+                        <div class="mb-3">
+                            <label for="novaCidade" class="form-label">Nova Cidade</label>
+                            <input type="text" class="form-control" id="novaCidade" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="novoEstado" class="form-label">Novo Estado</label>
+                            <input type="text" class="form-control" id="novoEstado" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="novoPontoReferencia" class="form-label">Novo Ponto de Referência</label>
+                            <input type="text" class="form-control" id="novoPontoReferencia">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Excluir Conta -->
+    <div class="modal fade" id="excluirContaModal" tabindex="-1" aria-labelledby="excluirContaModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="excluirContaModalLabel">Excluir Conta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="excluirContaForm">
+                        <p>Tem certeza que deseja apagar sua conta? Esta ação é irreversível.</p>
+                        <div class="mb-3">
+                            <label for="emailExcluir" class="form-label">E-mail atual</label>
+                            <input type="email" class="form-control" id="emailExcluir" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="senhaExcluir" class="form-label">Senha atual</label>
+                            <input type="password" class="form-control" id="senhaExcluir" required>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-outline-danger">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Aviso para Logout -->
+    <div class="modal fade" id="avisoLogoutModal" tabindex="-1" aria-labelledby="avisoLogoutModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="avisoLogoutModalLabel">Aviso</h5>
+                    <button type="button" class="btn-close" id="avisoLogoutModalBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Você será deslogado da plataforma e deverá fazer login novamente com as novas credenciais.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="confirmarLogoutButton">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão de Conta -->
+    <div class="modal fade" id="confirmacaoExclusaoModal" tabindex="-1" aria-labelledby="confirmacaoExclusaoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmacaoExclusaoModalLabel">Conta Excluída</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Sua conta foi apagada com sucesso.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" id="confirmarExclusaoButton">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts JavaScript do jQuery e Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <!-- Referencia do JavaScript -->
+    <script src="ConfiguracoesDeContaCliente.js"></script>
+
+    <!-- Script JavaScript do Header -->
+    <script src="/Projeto-Banco-de-Dados/client/src/utils/AuthCliente.js"></script>
+</body>
+
+</html>
