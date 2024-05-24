@@ -20,8 +20,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const response = await fetch(url, { method: "GET" });
       if (response.ok) {
         const user = await response.json();
-        sessionStorage.setItem('userToken', user.token);
-        const redirectUrl = "../../cliente/CardapioCliente.html";
+        console.log('Login successful, user:', user);
+        // Salva o usuário inteiro no sessionStorage pra ser usado em outras páginas
+        sessionStorage.setItem('loggedInUser', JSON.stringify(user)); 
+        const redirectUrl = "/Projeto-Banco-de-Dados/client/src/pages/cliente/CardapioCliente/CardapioCliente.html";
         window.location.href = redirectUrl;
       } else {
         senhaInput.classList.add("is-invalid");

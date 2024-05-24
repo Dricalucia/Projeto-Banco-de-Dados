@@ -1,0 +1,46 @@
+.card-body {
+    height: 300px; /* Define a altura fixa do card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.descricaoProduto {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Define o número máximo de linhas */
+    -webkit-box-orient: vertical;
+    height: 4.5em; /* Define a altura que acomoda 3 linhas de texto */
+    margin-bottom: 1em;
+}
+
+.adicionarSacolaButton, #addToBagButton {
+    background-color: #7CFF89 !important;
+    border: none !important;
+    color: black !important;
+}
+
+#addToBagButton {
+    margin-top: 0.5rem;
+}
+
+.adicionarSacolaButton:hover, #addToBagButton:hover{
+    background-color: #157347 !important;
+    color: white !important;
+
+}
+
+.tituloCategoria {
+    background-color: #F1F1F1 !important;
+}
+
+
+.form-range.form-range-track-height {
+    height: 38px;
+}
+
+#toggleFilters {
+    margin-bottom: 5px !important;
+    background: none !important;
+}

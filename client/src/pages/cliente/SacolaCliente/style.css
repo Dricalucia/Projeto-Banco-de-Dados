@@ -1,0 +1,25 @@
+.row.mb-3.p-2.border-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.row.mb-3.p-2.border-bottom .col-md-8 {
+    display: flex;
+    flex-direction: column;
+}
+
+.row.mb-3.p-2.border-bottom .col-md-4 {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
