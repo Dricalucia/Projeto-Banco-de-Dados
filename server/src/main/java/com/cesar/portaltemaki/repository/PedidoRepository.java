@@ -57,6 +57,12 @@ public class PedidoRepository {
         return jdbcTemplate.queryForList(sql, dataInicial, dataFinal);
     }
 
+    public List<Map<String, Object>> findPedidosPendentes() {
+        String sql = "SELECT nrPedido, data_hora_pedido, valor_total_pedido, status_pedido " +
+                 "FROM vw_pedidos_pendentes";
+        return jdbcTemplate.queryForList(sql);
+    }
+
     private Pedido mapRowToPedido(ResultSet rs, int rowNum) throws SQLException {
         Pedido pedido = new Pedido();
         pedido.setNrPedido(rs.getInt("nrPedido"));

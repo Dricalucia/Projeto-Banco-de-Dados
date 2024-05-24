@@ -12,4 +12,5 @@ public interface PedidoService {
     void deletePedido(int nrPedido);
     void updatePedido(Pedido pedido);
     List<Map<String, Object>> findPedidosPorPeriodo(String dataInicial, String dataFinal);  
+    List<Map<String, Object>> findPedidosPendentes();
 }

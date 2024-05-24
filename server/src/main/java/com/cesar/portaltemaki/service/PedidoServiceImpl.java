@@ -49,4 +49,9 @@ public class PedidoServiceImpl implements PedidoService{
     public List<Map<String, Object>> findPedidosPorPeriodo(String dataInicial, String dataFinal) {
         return pedidoRepository.findPedidosByPeriodo(dataInicial, dataFinal);
     }
+
+    @Override
+    public List<Map<String, Object>> findPedidosPendentes() {
+        return pedidoRepository.findPedidosPendentes();
+    }
 }

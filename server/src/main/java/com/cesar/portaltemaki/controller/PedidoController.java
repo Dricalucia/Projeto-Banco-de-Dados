@@ -66,4 +66,13 @@ public class PedidoController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/view-pendentes")
+    public ResponseEntity<List<Map<String, Object>>> getPedidosPendentes() {
+        List<Map<String, Object>> pedidosPendentes = pedidoService.findPedidosPendentes();
+        if (pedidosPendentes.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(pedidosPendentes);
+    }
 }
