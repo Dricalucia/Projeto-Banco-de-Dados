@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class ItemRepository {
@@ -47,6 +48,16 @@ public class ItemRepository {
     public List<Item> findItemsByCategoria(int idCategoria) {
         String sql = "SELECT * FROM item WHERE categoria_idCategoria = ?";
         return jdbcTemplate.query(sql, new Object[]{idCategoria}, this::mapRowToItem);
+    }
+
+    public List<Map<String, Object>> findQuantidadeItensVendidosEntreDatas(String dataInicial, String dataFinal) {
+        String sql = "SELECT pit.item_idItem, i.nome_item, SUM(pit.qtde_item) AS total_vendas " +
+                     "FROM pedido_itens pit " +
+                     "JOIN item i ON pit.item_idItem = i.idItem " +
+                     "JOIN pedido p ON pit.pedido_nrPedido = p.nrPedido " +
+                     "WHERE p.data_hora_pedido BETWEEN ? AND ? " +
+                     "GROUP BY pit.item_idItem, i.nome_item";
+        return jdbcTemplate.queryForList(sql, dataInicial, dataFinal);
     }
 
     private Item mapRowToItem(ResultSet rs, int rowNum) throws SQLException {

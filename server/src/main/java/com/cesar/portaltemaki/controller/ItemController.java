@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/itens")
@@ -58,5 +59,14 @@ public class ItemController {
     public ResponseEntity<List<Item>> getItemsByCategoria(@PathVariable int idCategoria) {
         List<Item> items = itemService.findItemsByCategoria(idCategoria);
         return ResponseEntity.ok(items);
+    }
+
+    @GetMapping("/vendidos-entre/{dataInicial}/{dataFinal}")
+    public ResponseEntity<List<Map<String, Object>>> getQuantidadeItensVendidosEntreDatas(@PathVariable String dataInicial, @PathVariable String dataFinal) {
+       List<Map<String, Object>> quantidadeItensVendidosData = itemService.findQuantidadeItensVendidosEntreDatas(dataInicial, dataFinal);
+       if (quantidadeItensVendidosData.isEmpty()) {
+            return ResponseEntity.notFound().build();
+       }
+       return ResponseEntity.ok(quantidadeItensVendidosData);
     }
 }
