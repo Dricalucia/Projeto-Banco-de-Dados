@@ -1,0 +1,29 @@
+.rounded-border {
+    border-radius: 10px;
+}
+.text-center th, .text-center td {
+    text-align: center;
+}
+.modal-lg {
+    max-width: 90%;
+}
+.modal-dialog {
+    max-width: 800px;
+}
+.table {
+    table-layout: fixed;
+    width: 100%;
+    border-radius: 10px !important;
+}
+.modal-content {
+    min-height: 300px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+.table th, .table td {
+    text-align: center;
+    word-wrap: break-word;
+}
+.modal-body {
+    overflow-x: auto;
+}

@@ -40,7 +40,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
     $("#modalItemDescription").text(item.descricaoItem);
     $("#modalItemPrice").text(item.precoItem.toFixed(2));
     $("#itemQuantity").val(1);
-    $("#itemObservation").val("");
     updateTotalPrice(item.precoItem);
 
     $("#itemQuantity").on("input", function () {
@@ -188,7 +187,6 @@ function updateTotalPrice(price) {
 
 function addToBag(item) {
   var quantity = $("#itemQuantity").val();
-  var observation = $("#itemObservation").val();
   var sacolaItems = JSON.parse(localStorage.getItem("sacola")) || [];
 
   // Verificar se o item já está na sacola
@@ -204,7 +202,6 @@ function addToBag(item) {
     sacolaItems.push({
       ...item,
       quantidade: parseInt(quantity),
-      observacao: observation,
     });
   }
 

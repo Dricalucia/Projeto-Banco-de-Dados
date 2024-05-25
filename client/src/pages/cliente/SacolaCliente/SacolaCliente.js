@@ -54,14 +54,13 @@ function loadSacolaItems() {
                         <p class="mb-1"><strong>${item.nomeItem}</strong></p>
                         <p class="mb-1">R$ ${item.precoItem.toFixed(2)}</p>
                         <p class="mb-1">Quantidade: 
-                            <button class="btn btn-sm btn-secondary me-1" onclick="updateItemQuantity(${index}, -1)">-</button>
+                            <button class="btn btn-sm btn-outline-danger me-1" onclick="updateItemQuantity(${index}, -1)">-</button>
                             ${item.quantidade}
-                            <button class="btn btn-sm btn-secondary ms-1" onclick="updateItemQuantity(${index}, 1)">+</button>
+                            <button class="btn btn-sm btn-outline-success ms-1" onclick="updateItemQuantity(${index}, 1)">+</button>
                         </p>
                         <p class="mb-1">Preço total: R$ ${itemTotal.toFixed(
                           2
                         )}</p>
-                        <p class="mb-1">Observação: ${item.observacao}</p>
                     </div>
                     <div class="col-md-4 d-flex justify-content-end align-items-center">
                         <button class="btn btn-sm btn-danger me-2" onclick="removeItemFromSacola(${index})">Remover</button>
