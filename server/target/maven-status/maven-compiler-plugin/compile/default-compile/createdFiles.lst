@@ -22,7 +22,6 @@ com\cesar\portaltemaki\service\LojaService.class
 com\cesar\portaltemaki\model\Cliente.class
 com\cesar\portaltemaki\model\Item.class
 com\cesar\portaltemaki\model\Dependente.class
-main\java\com\cesar\portaltemaki\config\CorsConfig$1.class
 com\cesar\portaltemaki\service\PromocaoServiceImpl.class
 com\cesar\portaltemaki\service\FuncionarioServiceImpl.class
 com\cesar\portaltemaki\model\ItensPedido.class
@@ -45,7 +44,6 @@ com\cesar\portaltemaki\service\ItemServiceImpl.class
 com\cesar\portaltemaki\model\Categoria.class
 com\cesar\portaltemaki\model\Funcionario.class
 com\cesar\portaltemaki\controller\ItensPedidoController.class
-main\java\com\cesar\portaltemaki\config\CorsConfig.class
 com\cesar\portaltemaki\repository\PedidoClienteRepository.class
 com\cesar\portaltemaki\service\FuncionarioService.class
 com\cesar\portaltemaki\model\Loja.class
