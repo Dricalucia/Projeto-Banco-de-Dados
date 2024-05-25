@@ -19,11 +19,16 @@ public class PedidoController {
     public PedidoController(PedidoService pedidoService) {
         this.pedidoService = pedidoService;
     }
+
     @GetMapping
     public ResponseEntity<List<Pedido>> getAllPedidos() {
         List<Pedido> pedidos = pedidoService.findAll();
+        if (pedidos.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(pedidos);
     }
+
     @GetMapping("/{nrPedido}")
     public ResponseEntity<Pedido> findByNrPedido(@PathVariable int nrPedido) {
         Pedido pedido = pedidoService.findByNrPedido(nrPedido);
@@ -33,6 +38,7 @@ public class PedidoController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @PostMapping
     public ResponseEntity<Void> addPedido(@RequestBody Pedido pedido) {
         pedidoService.savePedido(pedido);
@@ -59,7 +65,8 @@ public class PedidoController {
     }
 
     @GetMapping("/por-periodo/{dataInicial}/{dataFinal}")
-    public ResponseEntity<List<Map<String, Object>>> findPedidosPorPeriodo(@PathVariable String dataInicial, @PathVariable String dataFinal) {
+    public ResponseEntity<List<Map<String, Object>>> findPedidosPorPeriodo(@PathVariable String dataInicial,
+            @PathVariable String dataFinal) {
         List<Map<String, Object>> pedidos = pedidoService.findPedidosPorPeriodo(dataInicial, dataFinal);
         if (!pedidos.isEmpty()) {
             return ResponseEntity.ok(pedidos);

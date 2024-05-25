@@ -41,11 +41,13 @@ public class ItemController {
         }
         return ResponseEntity.notFound().build();
     }
+
     @GetMapping
     public ResponseEntity<List<Item>> getAllItems() {
         List<Item> items = itemService.findAllItems();
         return ResponseEntity.ok(items);
     }
+
     @GetMapping("/{idItem}")
     public ResponseEntity<Item> getItemById(@PathVariable int idItem) {
         Item item = itemService.findItemById(idItem);
@@ -55,18 +57,24 @@ public class ItemController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping("/categoria/{idCategoria}")
     public ResponseEntity<List<Item>> getItemsByCategoria(@PathVariable int idCategoria) {
         List<Item> items = itemService.findItemsByCategoria(idCategoria);
+        if (items.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(items);
     }
 
     @GetMapping("/vendidos-entre/{dataInicial}/{dataFinal}")
-    public ResponseEntity<List<Map<String, Object>>> getQuantidadeItensVendidosEntreDatas(@PathVariable String dataInicial, @PathVariable String dataFinal) {
-       List<Map<String, Object>> quantidadeItensVendidosData = itemService.findQuantidadeItensVendidosEntreDatas(dataInicial, dataFinal);
-       if (quantidadeItensVendidosData.isEmpty()) {
+    public ResponseEntity<List<Map<String, Object>>> getQuantidadeItensVendidosEntreDatas(
+            @PathVariable String dataInicial, @PathVariable String dataFinal) {
+        List<Map<String, Object>> quantidadeItensVendidosData = itemService
+                .findQuantidadeItensVendidosEntreDatas(dataInicial, dataFinal);
+        if (quantidadeItensVendidosData.isEmpty()) {
             return ResponseEntity.notFound().build();
-       }
-       return ResponseEntity.ok(quantidadeItensVendidosData);
+        }
+        return ResponseEntity.ok(quantidadeItensVendidosData);
     }
 }

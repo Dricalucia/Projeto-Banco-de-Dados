@@ -25,9 +25,13 @@ public class PedidoClienteController {
         pedidoClienteService.addPedidoCliente(pedidoCliente);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
     @GetMapping
     public ResponseEntity<List<PedidoCliente>> getAllPedidosClientes() {
         List<PedidoCliente> pedidosClientes = pedidoClienteService.findAllPedidosClientes();
+        if (pedidosClientes.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(pedidosClientes);
     }
 
@@ -57,8 +61,10 @@ public class PedidoClienteController {
     }
 
     @GetMapping("/cliente-por-periodo/{dataInicial}/{dataFinal}/{idCliente}")
-    public ResponseEntity<List<Map<String, Object>>> getPedidosClientesByPeriodo(@PathVariable String dataInicial, @PathVariable String dataFinal, @PathVariable int idCliente) {
-        List<Map<String, Object>> pedidosClientePeriodo = pedidoClienteService.getPedidoClientePorPeriodo(dataInicial, dataFinal, idCliente);
+    public ResponseEntity<List<Map<String, Object>>> getPedidosClientesByPeriodo(@PathVariable String dataInicial,
+            @PathVariable String dataFinal, @PathVariable int idCliente) {
+        List<Map<String, Object>> pedidosClientePeriodo = pedidoClienteService.getPedidoClientePorPeriodo(dataInicial,
+                dataFinal, idCliente);
         if (pedidosClientePeriodo.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -66,8 +72,10 @@ public class PedidoClienteController {
     }
 
     @GetMapping("/count-entre-datas/{dataInicial}/{dataFinal}")
-    public ResponseEntity<List<Map<String, Object>>> getPedidoClienteCountEntreDatas(@PathVariable String dataInicial, @PathVariable String dataFinal) {
-        List<Map<String, Object>> pedidosClienteEntreDatas = pedidoClienteService.getPedidoClienteCountEntreDatas(dataInicial, dataFinal);
+    public ResponseEntity<List<Map<String, Object>>> getPedidoClienteCountEntreDatas(@PathVariable String dataInicial,
+            @PathVariable String dataFinal) {
+        List<Map<String, Object>> pedidosClienteEntreDatas = pedidoClienteService
+                .getPedidoClienteCountEntreDatas(dataInicial, dataFinal);
         if (pedidosClienteEntreDatas.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -75,9 +83,11 @@ public class PedidoClienteController {
     }
 
     @GetMapping("/total-max-entre-datas/{dataInicial}/{dataFinal}")
-    public ResponseEntity<List<Map<String, Object>>> getPedidoComTotalMaxEntreDatas(@PathVariable String dataInicial, @PathVariable String dataFinal) {
-        List<Map<String, Object>> pedidosMaxTotalEntreDatas = pedidoClienteService.getPedidoComTotalMaxEntreDatas(dataInicial, dataFinal);
-        if(pedidosMaxTotalEntreDatas.isEmpty()) {
+    public ResponseEntity<List<Map<String, Object>>> getPedidoComTotalMaxEntreDatas(@PathVariable String dataInicial,
+            @PathVariable String dataFinal) {
+        List<Map<String, Object>> pedidosMaxTotalEntreDatas = pedidoClienteService
+                .getPedidoComTotalMaxEntreDatas(dataInicial, dataFinal);
+        if (pedidosMaxTotalEntreDatas.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(pedidosMaxTotalEntreDatas);

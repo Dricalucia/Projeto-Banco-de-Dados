@@ -22,6 +22,9 @@ public class PromocaoController {
     @GetMapping
     public ResponseEntity<List<Promocao>> findAllPromocao() {
         List<Promocao> promocoes = promocaoService.findAllPromocao();
+        if (promocoes.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(promocoes);
     }
 
@@ -34,6 +37,7 @@ public class PromocaoController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping("/item/{idItem}")
     public ResponseEntity<Promocao> findPromocaoByItemId(@PathVariable int idItem) {
         Promocao promocao = promocaoService.findPromocaoByItemId(idItem);
@@ -43,6 +47,7 @@ public class PromocaoController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @PostMapping
     public ResponseEntity<Void> addPromocao(@RequestBody Promocao promocao) {
         promocaoService.addPromocao(promocao);
@@ -66,7 +71,5 @@ public class PromocaoController {
         }
         return ResponseEntity.notFound().build();
     }
-
-
 
 }

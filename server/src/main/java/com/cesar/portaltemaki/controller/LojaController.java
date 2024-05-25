@@ -19,7 +19,10 @@ public class LojaController {
     @GetMapping
     public ResponseEntity<List<Loja>> getAllLojas() {
         List<Loja> lojas = lojaService.getAllLojas();
-        return new ResponseEntity<>(lojas, HttpStatus.OK);
+        if (lojas.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(lojas);
     }
 
     @DeleteMapping("/{cnpj}")
@@ -46,6 +49,5 @@ public class LojaController {
             return ResponseEntity.notFound().build();
         }
     }
-
 
 }

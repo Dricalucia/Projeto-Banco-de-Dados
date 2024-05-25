@@ -13,6 +13,7 @@ import java.util.List;
 @RequestMapping("/categorias")
 public class CategoriaController {
     private final CategoriaService categoriaService;
+
     @Autowired
     public CategoriaController(CategoriaService categoriaService) {
         this.categoriaService = categoriaService;
@@ -27,21 +28,28 @@ public class CategoriaController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping()
     public ResponseEntity<List<Categoria>> getAllCategorias() {
         List<Categoria> categorias = categoriaService.findAllCategorias();
+        if (categorias.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(categorias);
     }
+
     @PostMapping()
     public ResponseEntity<Void> addCategoria(@RequestBody Categoria categoria) {
         categoriaService.saveCategoria(categoria);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
     @DeleteMapping("/{idCategoria}")
     public ResponseEntity<Void> deleteCategoria(@PathVariable int idCategoria) {
         categoriaService.deleteCategoria(idCategoria);
         return ResponseEntity.ok().build();
     }
+
     @PutMapping("/{idCategoria}")
     public ResponseEntity<Void> updateCategoria(@PathVariable int idCategoria, @RequestBody Categoria categoria) {
         Categoria categoriaExistente = categoriaService.findCategoriaById(idCategoria);

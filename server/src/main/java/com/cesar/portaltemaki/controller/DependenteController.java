@@ -14,19 +14,27 @@ import java.util.List;
 public class DependenteController {
 
     private final DependenteService dependenteService;
+
     @Autowired
     public DependenteController(DependenteService dependenteService) {
         this.dependenteService = dependenteService;
     }
+
     @GetMapping("/{matricula}")
-    public ResponseEntity<List<Dependente>> getDependentesByMatricula(@PathVariable int matricula){
+    public ResponseEntity<List<Dependente>> getDependentesByMatricula(@PathVariable int matricula) {
         List<Dependente> dependetes = dependenteService.findDependentebyMatricula(matricula);
+        if (dependetes.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(dependetes);
     }
 
     @GetMapping
     public ResponseEntity<List<Dependente>> getAllDependentes() {
         List<Dependente> dependentes = dependenteService.findAll();
+        if (dependentes.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(dependentes);
     }
 
@@ -38,7 +46,7 @@ public class DependenteController {
 
     @PutMapping("/{cpf}/{matricula}")
     public ResponseEntity<Void> updateDependente(@PathVariable String cpf, @PathVariable int matricula,
-                                                 @RequestBody Dependente novoDependente) {
+            @RequestBody Dependente novoDependente) {
         List<Dependente> dependentes = dependenteService.findDependentebyMatricula(matricula);
 
         for (Dependente dependenteExistente : dependentes) {
@@ -52,6 +60,7 @@ public class DependenteController {
 
         return ResponseEntity.notFound().build();
     }
+
     @DeleteMapping("/{cpf}")
     public ResponseEntity<Void> deleteDependente(@PathVariable String cpf) {
         dependenteService.delete(cpf);

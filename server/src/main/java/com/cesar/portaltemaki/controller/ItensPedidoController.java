@@ -32,12 +32,18 @@ public class ItensPedidoController {
     @GetMapping()
     public ResponseEntity<List<ItensPedido>> getAllPedidos() {
         List<ItensPedido> itensPedidos = itensPedidoService.findAllPedidos();
+        if (itensPedidos.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(itensPedidos);
     }
 
     @GetMapping("/{nrPedido}")
     public ResponseEntity<List<ItensPedido>> getPedidoByNrPedido(@PathVariable int nrPedido) {
         List<ItensPedido> itensPedido = itensPedidoService.findPedidoByNrPedido(nrPedido);
+        if (itensPedido.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(itensPedido);
     }
 }

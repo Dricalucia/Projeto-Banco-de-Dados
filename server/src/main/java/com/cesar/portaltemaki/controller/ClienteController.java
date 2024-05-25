@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
-@CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
+@CrossOrigin(origins = { "http://127.0.0.1:5500", "http://localhost:5500" })
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -23,17 +23,20 @@ public class ClienteController {
     @GetMapping
     public ResponseEntity<List<Cliente>> getAllClientes() {
         List<Cliente> clientes = clienteService.findAll();
+        if (clientes.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(clientes);
     }
 
     @GetMapping("/{email}/{senha}")
     public ResponseEntity<Cliente> verificarCliente(@PathVariable String email, @PathVariable String senha) {
-            Cliente cliente = clienteService.findByEmailAndSenha(email, senha);
-            if (cliente != null) {
-                return ResponseEntity.ok(cliente);
-            } else {
-               return ResponseEntity.notFound().build();
-            }
+        Cliente cliente = clienteService.findByEmailAndSenha(email, senha);
+        if (cliente != null) {
+            return ResponseEntity.ok(cliente);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
 
     }
 
