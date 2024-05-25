@@ -36,9 +36,9 @@ public class PedidoClienteController {
     }
 
     @GetMapping("/{idCliente}")
-    public ResponseEntity<PedidoCliente> getPedidoClienteByIdCliente(@PathVariable int idCliente) {
-        PedidoCliente pedidoCliente = pedidoClienteService.findPedidoClienteByClienteId(idCliente);
-        if (pedidoCliente != null) {
+    public ResponseEntity<List<PedidoCliente>> getPedidoClienteByIdCliente(@PathVariable int idCliente) {
+        List<PedidoCliente> pedidoCliente = pedidoClienteService.findPedidoClienteByClienteId(idCliente);
+        if (pedidoCliente != null && !pedidoCliente.isEmpty()) {
             return ResponseEntity.ok(pedidoCliente);
         } else {
             return ResponseEntity.notFound().build();

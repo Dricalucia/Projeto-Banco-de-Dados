@@ -32,14 +32,13 @@ public class PedidoClienteRepository {
         return jdbcTemplate.query(sql, this::mapRowToPedidoCliente);
     }
     @SuppressWarnings("deprecation")
-    public PedidoCliente findByClienteId(int idCliente) {
+    public List<PedidoCliente> findByClienteId(int idCliente) {
         String sql = "SELECT pc.cliente_idCliente, pc.pedido_nrPedido FROM pedido_cliente pc " +
-                "JOIN cliente c ON pc.cliente_idCliente = c.idCliente " +
-                "JOIN pedido p ON pc.pedido_nrPedido = p.nrPedido " +
-                "WHERE pc.cliente_idCliente = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[] { idCliente }, this::mapRowToPedidoCliente);
+                     "JOIN cliente c ON pc.cliente_idCliente = c.idCliente " +
+                     "JOIN pedido p ON pc.pedido_nrPedido = p.nrPedido " +
+                     "WHERE pc.cliente_idCliente = ?";
+        return jdbcTemplate.query(sql, new Object[] { idCliente }, this::mapRowToPedidoCliente);
     }
-
     public List<Map<String, Object>> findPedidoDetailsByNrPedido(int nrPedido) {
         String sql = "SELECT " +
                 "    p.nrPedido, " +

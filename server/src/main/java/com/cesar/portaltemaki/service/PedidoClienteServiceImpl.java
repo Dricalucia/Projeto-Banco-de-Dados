@@ -34,7 +34,7 @@ public class PedidoClienteServiceImpl implements PedidoClienteService {
     }
 
     @Override
-    public PedidoCliente findPedidoClienteByClienteId(int idCliente) {
+    public List<PedidoCliente> findPedidoClienteByClienteId(int idCliente) {
         try {
             return pedidoClienteRepository.findByClienteId(idCliente);
         } catch (EmptyResultDataAccessException ex) {

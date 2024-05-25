@@ -10,7 +10,7 @@ public interface PedidoClienteService {
     void addPedidoCliente(PedidoCliente pedidoCliente);
     void deletePedidoCliente(int idCliente);
     List<PedidoCliente> findAllPedidosClientes();
-    PedidoCliente findPedidoClienteByClienteId(int idCliente);
+    List<PedidoCliente> findPedidoClienteByClienteId(int idCliente);
     List<Map<String, Object>> getPedidoDetalhes(int nrPedido);
     List<Map<String, Object>> getPedidoClientePorPeriodo(String dataInicial, String dataFinal, int idCliente);
     List<Map<String, Object>> getPedidoClienteCountEntreDatas(String dataInicial, String dataFinal);
