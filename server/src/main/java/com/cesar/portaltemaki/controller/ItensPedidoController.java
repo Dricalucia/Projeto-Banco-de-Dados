@@ -36,12 +36,8 @@ public class ItensPedidoController {
     }
 
     @GetMapping("/{nrPedido}")
-    public ResponseEntity<ItensPedido> getPedidoByNrPedido(@PathVariable int nrPedido) {
-        ItensPedido itensPedido = itensPedidoService.findPedidoByNrPedido(nrPedido);
-        if (itensPedido != null) {
-            return ResponseEntity.ok(itensPedido);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<List<ItensPedido>> getPedidoByNrPedido(@PathVariable int nrPedido) {
+        List<ItensPedido> itensPedido = itensPedidoService.findPedidoByNrPedido(nrPedido);
+        return ResponseEntity.ok(itensPedido);
     }
 }

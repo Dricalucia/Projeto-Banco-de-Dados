@@ -34,7 +34,7 @@ public class ItensPedidoServiceImpl implements ItensPedidoService{
     }
 
     @Override
-    public ItensPedido findPedidoByNrPedido(int nrPedido) {
+    public List<ItensPedido> findPedidoByNrPedido(int nrPedido) {
         try {
             return itensPedidoRepository.findPedidoByNrPedido(nrPedido);
         } catch (EmptyResultDataAccessException ex) {

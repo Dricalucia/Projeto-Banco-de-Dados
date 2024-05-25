@@ -20,7 +20,7 @@ public class ItensPedidoRepository {
         jdbcTemplate.update(sql, itensPedido.getPedidoNrPedido(), itensPedido.getItemIdItem(), itensPedido.getQuantidadeItem());
     }
     @SuppressWarnings("deprecation")
-    public ItensPedido findPedidoByNrPedido(int nrPedido) {
+    public List<ItensPedido> findPedidoByNrPedido(int nrPedido) {
         String sql = "SELECT pi.pedido_nrPedido, pi.item_idItem, pi.qtde_item, " +
                 "p.data_hora_pedido, p.data_hora_prevista_entrega, " +
                 "p.data_hora_saida_entrega, p.data_hora_entrega, " +
@@ -31,7 +31,7 @@ public class ItensPedidoRepository {
                 "JOIN pedido p ON pi.pedido_nrPedido = p.nrPedido " +
                 "JOIN item i ON pi.item_idItem = i.idItem " +
                 "WHERE pi.pedido_nrPedido = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{nrPedido}, this::mapRowToItensPedido);
+        return jdbcTemplate.query(sql, new Object[]{nrPedido}, this::mapRowToItensPedido);
     }
 
     public List<ItensPedido> findAll() {

@@ -8,5 +8,5 @@ public interface ItensPedidoService {
     void savePedido(ItensPedido itensPedido);
     void deletePedido(int nrPedido);
     List<ItensPedido> findAllPedidos();
-    ItensPedido findPedidoByNrPedido(int nrPedido);
+    List<ItensPedido> findPedidoByNrPedido(int nrPedido);
 }
