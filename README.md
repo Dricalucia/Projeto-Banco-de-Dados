@@ -33,7 +33,7 @@ Este repositório conterá o minimundo do negócio escolhido, a modelagem dos da
 ```shell
 instrução
 ```
-- Certifique-se que tenhas instalado o Flask. Depois, no seu repositório local, esteja na raiz do projeto para criação do ambiente virtual. Utilize os seguintes comandos no terminal:
+-  Utilize os seguintes comandos no terminal:
 
 - Windows
 ```shell
@@ -66,24 +66,243 @@ finstrução
 # Estrutura do diretório
 
 ```shell
-├── Minimundo.pdf
-├── README.md
-├── ModelagemBD
-│   ├── Conceitual
-│   ├── Logico
-│   └── Fisico
-├── SQL
-│   └── Script
-├── Código
-│   ├──
-│   ├── 
-│   ├── 
-│   ├── 
-│   ├── 
-│   ├── 
-│   └── 
-└── venv
+├── .idea
+│    ├── .gitignore
+│    ├── BD--Projeto.iml
+│    ├── misc.xml
+│    ├── modules.xml
+│    └── vcs.xml
+├── .vscode
+│    └── settings.json
+├── client/src
+│   ├── pages
+│   │   ├── cadastro
+│   │   │   ├── Cadastro.js
+│   │   │   ├── CadastroPage.html
+│   │   │   └── style.css
+│   │   ├── cliente
+│   │   │   ├── CardapioCliente
+│   │   │   │   ├── CardapioCliente.html
+│   │   │   │   ├── CardapioCliente.js
+│   │   │   │   └── style.css
+│   │   │   ├── PedidosFeitosCliente
+│   │   │   │   ├── PedidosFeitosCliente.html
+│   │   │   │   ├── PedidosFeitosCliente.js
+│   │   │   │   └── style.css
+│   │   │   ├── SacolaCliente
+│   │   │   │   ├── SacolaCliente.html
+│   │   │   │   ├── SacolaCliente.js
+│   │   │   │   └── style.css
+│   │   │   └── configuracoesDeContaCliente
+│   │   │       ├── ConfiguracoesDeContaCliente.html
+│   │   │       ├── ConfiguracoesDeContaCliente.js
+│   │   │       └── style.css
+│   │   │── funcionario
+│   │   │     ├── AreaDoCliente
+│   │   │     │   ├── AreaDoCliente.html
+│   │   │     │   └── AreaDoCliente.js
+│   │   │     ├── AreaDoFuncionario
+│   │   │     │   ├── AreaDoFuncionario.html
+│   │   │     │   └── AreaDoFuncionario.js
+│   │   │     ├── PedidosAceitos
+│   │   │     │   ├── PedidosAceitos.html
+│   │   │     │   └── PedidosAceitos.js
+│   │   │     ├── PedidosEmAberto
+│   │   │     │   ├── PedidosEmAberto.html
+│   │   │     │   └── PedidosEmAberto.js
+│   │   │     ├── configuracoes
+│   │   │     │   ├── AdicionarFuncionario.js
+│   │   │     │   ├── AdicionarProduto.js
+│   │   │     │   ├── Configuracoes.html
+│   │   │     │   ├── Configuracoes.js
+│   │   │     │   ├── Dashboard.js
+│   │   │     │   ├── EditarFuncionario.js
+│   │   │     │   └── EditarProduto.js
+│   │   │     └── style.css
+│   │   └── login
+│   │        ├── cliente
+│   │        │   ├── LoginCliente.html
+│   │        │   ├── LoginCliente.js
+│   │        │   └── style.css
+│   │        └── funcionario
+│   │            ├── LoginFuncionario.html
+│   │            ├── LoginFuncionario.js
+│   │            └── style.css
+│   └── utils
+│       ├── AuthCliente.js
+│       ├── AuthFuncionario.js
+│       ├── HeaderCliente.html
+│       └── HeaderFuncionario.html
+├── db
+│   ├── ModelagemBD
+│   │   ├── Projeto_BD_ModeloConceitual.brM3
+│   │   ├── Projeto_BD_ModeloConceitual.png
+│   │   ├── Projeto_BD_ModeloFisico.png
+│   │   ├── Projeto_BD_ModeloLogico.brM3
+│   │   └── Projeto_BD_ModeloLogico.png
+│   ├── Scripts
+│   │   ├── BD Projeto (CRUD).txt
+│   │   ├── ScriptPopularTabelas.sql
+│   │   ├── ScriptPortalDoTemaki.sql
+│   │   └── ScriptSQLAvancado.sql
+│   ├── Minimundo.pdf
+│   └── Swagger UI.pdf
+├── img
+│   ├── Portal_Temaki.png
+│   └── logo-provisoria.png
+├── server
+│   ├── mvn/wrapper
+│   │   ├── maven-wrapper.jar
+│   │   └── maven-wrapper.properties
+│   ├── src
+│   │   ├── main
+│   │   │   ├── test/java/com/cesar/portaltemaki
+│   │   │   │   ├── config
+│   │   │   │   │   └── CorsConfig.java
+│   │   │   │   ├── controller
+│   │   │   │   │   ├── CategoriaController.java
+│   │   │   │   │   ├── ClienteController.java
+│   │   │   │   │   ├── DependenteController.java
+│   │   │   │   │   ├── FuncionarioController.java
+│   │   │   │   │   ├── ItemController.java
+│   │   │   │   │   ├── ItensPedidoController.java
+│   │   │   │   │   ├── LojaController.java
+│   │   │   │   │   ├── PedidoClienteController.java
+│   │   │   │   │   ├── PedidoController.java
+│   │   │   │   │   └── PromocaoController.java
+│   │   │   │   ├── model
+│   │   │   │   │   ├── Categoria.java
+│   │   │   │   │   ├── Cliente.java
+│   │   │   │   │   ├── Dependente.java
+│   │   │   │   │   ├── Funcionario.java
+│   │   │   │   │   ├── Item.java
+│   │   │   │   │   ├── ItensPedido.java
+│   │   │   │   │   ├── Loja.java
+│   │   │   │   │   ├── Pedido.java
+│   │   │   │   │   ├── PedidoCliente.java
+│   │   │   │   │   └── Promocao.java
+│   │   │   │   ├── repository
+│   │   │   │   │   ├── CategoriaRepository.java
+│   │   │   │   │   ├── ClienteRepository.java
+│   │   │   │   │   ├── DependenteRepository.java
+│   │   │   │   │   ├── FuncionarioRepository.java
+│   │   │   │   │   ├── ItemRepository.java
+│   │   │   │   │   ├── ItensPedidoRepository.java
+│   │   │   │   │   ├── LojaRepository.java
+│   │   │   │   │   ├── PedidoClienteRepository.java
+│   │   │   │   │   ├── PedidoRepository.java
+│   │   │   │   │   └── PromocaoRepository.java
+│   │   │   │   ├── service
+│   │   │   │   │   ├── CategoriaService.java
+│   │   │   │   │   ├── CategoriaServiceImpl.java
+│   │   │   │   │   ├── ClienteService.java
+│   │   │   │   │   ├── ClienteServiceImpl.java
+│   │   │   │   │   ├── DependenteService.java
+│   │   │   │   │   ├── DependenteServiceImpl.java
+│   │   │   │   │   ├── FuncionarioService.java
+│   │   │   │   │   ├── FuncionarioServiceImpl.java
+│   │   │   │   │   ├── ItemService.java
+│   │   │   │   │   ├── ItemServiceImpl.java
+│   │   │   │   │   ├── ItensPedidoService.java
+│   │   │   │   │   ├── ItensPedidoServiceImpl.java
+│   │   │   │   │   ├── LojaService.java
+│   │   │   │   │   ├── LojaServiceImpl.java
+│   │   │   │   │   ├── PedidoClienteService.java
+│   │   │   │   │   ├── PedidoClienteServiceImpl.java
+│   │   │   │   │   ├── PedidoService.java
+│   │   │   │   │   ├── PedidoServiceImpl.java
+│   │   │   │   │   ├── PromocaoService.java
+│   │   │   │   │   └── PromocaoServiceImpl.java
+│   │   │   │   └── PortalTemakiApplication.java
+│   │   │   └── resources
+│   │   │       └── application.properties
+│   │   └── test/java/com/cesar/portaltemaki
+│   ├── target
+│   │   ├── classes
+│   │   │   ├── com/cesar/portaltemaki
+│   │   │   │   ├── config
+│   │   │   │   │   ├── CorsConfig$1.class
+│   │   │   │   │   └── CorsConfig.class
+│   │   │   │   ├── controller
+│   │   │   │   │   ├── CategoriaController.class
+│   │   │   │   │   ├── ClienteController.class
+│   │   │   │   │   ├── DependenteController.class
+│   │   │   │   │   ├── FuncionarioController.class
+│   │   │   │   │   ├── ItemController.class
+│   │   │   │   │   ├── ItensPedidoController.class
+│   │   │   │   │   ├── LojaController.class
+│   │   │   │   │   ├── PedidoClienteController.class
+│   │   │   │   │   ├── PedidoController.class
+│   │   │   │   │   └── PromocaoController.class
+│   │   │   │   ├── model
+│   │   │   │   │   ├── Categoria.class
+│   │   │   │   │   ├── Cliente.class
+│   │   │   │   │   ├── Dependente.class
+│   │   │   │   │   ├── Funcionario.class
+│   │   │   │   │   ├── Item.class
+│   │   │   │   │   ├── ItensPedido.class
+│   │   │   │   │   ├── Loja.class
+│   │   │   │   │   ├── Pedido.class
+│   │   │   │   │   ├── PedidoCliente.class
+│   │   │   │   │   └── Promocao.class
+│   │   │   │   ├── repository
+│   │   │   │   │   ├── CategoriaRepository.class
+│   │   │   │   │   ├── ClienteRepository.class
+│   │   │   │   │   ├── DependenteRepository.class
+│   │   │   │   │   ├── FuncionarioRepository.class
+│   │   │   │   │   ├── ItemRepository.class
+│   │   │   │   │   ├── ItensPedidoRepository.class
+│   │   │   │   │   ├── LojaRepository.class
+│   │   │   │   │   ├── PedidoClienteRepository.class
+│   │   │   │   │   ├── PedidoRepository.class
+│   │   │   │   │   └── PromocaoRepository.class
+│   │   │   │   ├── service
+│   │   │   │   │   ├── CategoriaService.class
+│   │   │   │   │   ├── CategoriaServiceImpl.class
+│   │   │   │   │   ├── ClienteService.class
+│   │   │   │   │   ├── ClienteServiceImpl.class
+│   │   │   │   │   ├── DependenteService.class
+│   │   │   │   │   ├── DependenteServiceImpl.class
+│   │   │   │   │   ├── FuncionarioService.class
+│   │   │   │   │   ├── FuncionarioServiceImpl.class
+│   │   │   │   │   ├── ItemService.class
+│   │   │   │   │   ├── ItemServiceImpl.class
+│   │   │   │   │   ├── ItensPedidoService.class
+│   │   │   │   │   ├── ItensPedidoServiceImpl.class
+│   │   │   │   │   ├── LojaService.class
+│   │   │   │   │   ├── LojaServiceImpl.class
+│   │   │   │   │   ├── PedidoClienteService.class
+│   │   │   │   │   ├── PedidoClienteServiceImpl.class
+│   │   │   │   │   ├── PedidoService.class
+│   │   │   │   │   ├── PedidoServiceImpl.class
+│   │   │   │   │   ├── PromocaoService.class
+│   │   │   │   │   └── PromocaoServiceImpl.class
+│   │   │   │   └── PortalTemakiApplication.class
+│   │   │   └── application.properties
+│   │   ├── maven-archiver
+│   │   │   └── pom.properties
+│   │   ├── maven-status/maven-compiler-plugin
+│   │   │   ├── compile/default-compile
+│   │   │   │   ├── createdFiles.lst
+│   │   │   │   └── inputFiles.lst
+│   │   │   └── testCompile/default-testCompile
+│   │   │       ├── createdFiles.lst
+│   │   │       └── inputFiles.lst
+│   │   ├── surefire-reports
+│   │   │   ├── 2024-05-17T20-10-15_287.dumpstream
+│   │   │   ├── TEST-com.cesar.portaltemaki.PortalTemakiApplicationTests.xml
+│   │   │   └── com.cesar.portaltemaki.PortalTemakiApplicationTests.txt
+│   │   ├── test-classes/com/cesar/portaltemaki
+│   │   │   └── PortalTemakiApplicationTests.class
+│   │   ├── restaurante-japones-0.0.1-SNAPSHOT.jar
+│   │   └── restaurante-japones-0.0.1-SNAPSHOT.jar.original
+│   ├── mvnw
+│   ├── mvnw.cmd
+│   └── pom.xml
+└── README.md
+
 ```
+
 # Apresentação do Projeto
 - Slides 📊: 
 - Vídeo da apresentação 🎥:
