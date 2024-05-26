@@ -1,0 +1,29 @@
+.card-body {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.btn.btn-success {
+    background-color: #7CFF89 !important;
+    border: none !important;
+    color: black !important;
+}
+
+.btn.btn-danger {
+    background-color: #FF7C7C !important;
+    border: none !important;
+    color: black !important;
+}
+
+.btn.btn-success:hover {
+    background-color: #157347 !important;
+    color: white !important;
+}
+
+.btn.btn-danger:hover {
+    background-color: #C44851 !important;
+    color: white !important;
+}
+
