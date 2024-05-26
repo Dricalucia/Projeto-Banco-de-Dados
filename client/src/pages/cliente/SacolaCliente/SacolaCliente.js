@@ -152,10 +152,10 @@ async function enviarPedido() {
 
     const pedido = {
       nrPedido: nrPedido,
-      dataHoraPedido: new Date().toISOString(),
+      dataHoraPedido: getLocalISOString(),
       dataHoraPrevistaEntrega: new Date(
-        new Date().getTime() + 30 * 60 * 1000
-      ).toISOString(),
+        getLocalISOString() + 50 * 60 * 1000
+      ),
       dataHoraSaidaEntrega: null,
       dataHoraEntrega: null,
       statusPedido: "Em Aberto",
@@ -242,4 +242,13 @@ async function enviarPedido() {
     console.error("Erro ao enviar pedido:", error);
     alert("Erro ao enviar o pedido. Por favor, tente novamente.");
   }
+}
+
+function getLocalISOString() {
+  const now = new Date();
+  const offset = now.getTimezoneOffset();
+  const localISOTime = new Date(now.getTime() - offset * 60 * 1000)
+    .toISOString()
+    .slice(0, -1);
+  return localISOTime;
 }

@@ -14,10 +14,10 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("*")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT")
+                        .allowedOrigins("*") // Permite todas as origens
+                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT")
                         .allowedHeaders("*")
-                        .allowCredentials(false); // Adicione esta linha para desabilitar o uso de credenciais
+                        .allowCredentials(false); // Desabilita credenciais
             }
         };
     }

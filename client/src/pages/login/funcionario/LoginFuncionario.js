@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const response = await fetch(url, { method: "GET" });
       if (response.ok) {
         const user = await response.json();
-        sessionStorage.setItem('userToken', user.token); // Salvar o token no sessionStorage
-        const redirectUrl = "../../funcionario/PedidosEmAberto.html";
+        sessionStorage.setItem('loggedInUser', JSON.stringify(user)); // Salvar o usuário no sessionStorage
+        const redirectUrl = "/Projeto-Banco-de-Dados/client/src/pages/funcionario/PedidosEmAberto/PedidosEmAberto.html";
         window.location.href = redirectUrl;
       } else {
         senhaInput.classList.add("is-invalid");
