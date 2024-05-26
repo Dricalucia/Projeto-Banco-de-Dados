@@ -27,6 +27,41 @@ Este repositório conterá o minimundo do negócio escolhido, a modelagem dos da
 
 ![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
 
+# Instalação e Criação de Ambiente Virtual
+
+- Clone este repositório remoto no seu diretório local;
+```shell
+instrução
+```
+- Certifique-se que tenhas instalado o Flask. Depois, no seu repositório local, esteja na raiz do projeto para criação do ambiente virtual. Utilize os seguintes comandos no terminal:
+
+- Windows
+```shell
+instrução
+```
+- MacOS e Linux
+```shell
+instrução
+```
+Após a conclusão, execute também o seguinte comando a partir da mesma pasta.
+
+- Windows
+
+```shell
+instrução
+```
+- MacOS e Linux
+```shell
+instrução
+```
+- Rodar o projeto [Windows e MacOS e Linux]
+
+```shell
+finstrução
+```
+- Abra no seu navegador o servidor local em **localhost:5000**
+- Ou se preferir, no seu terminal vá até o link do seu servidor local e pressione a tecla Ctrl + click mouse, que o projeto rodará na porta http://127.0.0.1:5000
+
 
 # Estrutura do diretório
 
