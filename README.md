@@ -27,41 +27,74 @@ Este repositório conterá o minimundo do negócio escolhido, a modelagem dos da
 
 ![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
 
-# Instalação e Criação de Ambiente Virtual
+# Instrução Projeto Spring-boot
 
-- Clone este repositório remoto no seu diretório local;
-```shell
-instrução
-```
--  Utilize os seguintes comandos no terminal:
+## Requisitos
 
-- Windows
-```shell
-instrução
-```
-- MacOS e Linux
-```shell
-instrução
-```
-Após a conclusão, execute também o seguinte comando a partir da mesma pasta.
+Antes de começar, certifique-se de ter o seguinte instalado no seu ambiente de desenvolvimento:
 
-- Windows
+- JDK 17
+- Maven
+- Git
 
+## Clonar o Repositório
+
+ Para obter uma cópia local do projeto, execute o comando abaixo para clonar o repositório do GitHub:
+ 
 ```shell
-instrução
+git clone https://github.com/Dricalucia/BD–Projeto.git
 ```
-- MacOS e Linux
-```shell
-instrução
-```
-- Rodar o projeto [Windows e MacOS e Linux]
+
+## Instalar Dependências
+
+Pelo fato de estarmos usando um monorepo ou seja, em um único repositório temos tanto o back-end quanto o front-end, é necessário ir até a pasta que contém o back-end, usando o comando abaixo:
 
 ```shell
-finstrução
+cd server 
 ```
-- Abra no seu navegador o servidor local em **localhost:5000**
-- Ou se preferir, no seu terminal vá até o link do seu servidor local e pressione a tecla Ctrl + click mouse, que o projeto rodará na porta http://127.0.0.1:5000
+Após estar no path correto é usado o `mvn` para instalar as dependências necessárias para rodar o projeto.
 
+```shell
+mvn install
+```
+
+## Configurar o Banco de Dados
+1. Abra o arquivo `application.properties` localizado no diretório `server/src/main/resources`.
+2. Configure as propriedades do banco de dados, substituindo:
+
+```shell
+spring.datasource.url=jdbc:mysql://localhost:3306/<nome_do_seu_database>
+spring.datasource.username=<seu_username>
+spring.datasource.password=<sua_password>
+```
+
+Passo primordial, caso os dados não sejam devidamente alterados o projeto é executado porém não vai funcionar, visto que o banco de dados é inexistente.
+
+## Executar o Servidor
+
+Vamos até o local que contém o back-end:
+```shell
+cd server
+```
+E finalmente rodamos o projeto spring boot usando o `mvn`
+```shell
+mvn spring-boot:run
+```
+Também é possível executar o programa indo em:
+
+> BD--PROJETO/server/src/main/java/com/cesar/portaltemaki/`PortalTemakiApplication.java`
+
+E executando `PortalTemakiApplication.java`
+
+## Testar as APIs
+
+Além disso, o projeto possui o Swagger implementado, o que permite testar as APIs diretamente através da interface do Swagger. Após iniciar o servidor, você pode acessar a documentação da API no seguinte link:
+
+[Swagger](http://localhost:8080/swagger-ui/index.html#/)
+
+A interface do Swagger oferece uma maneira interativa e intuitiva de explorar e testar as diferentes operações disponíveis na sua API, facilitando o processo de desenvolvimento e validação.
+
+**Claro que você pode testar usando softwares como Insomnia ou Postman.**
 
 # Estrutura do diretório
 
