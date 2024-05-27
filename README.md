@@ -6,7 +6,7 @@ Para gerenciamento de banco de dados será  utilizado o MySQL e o framework esco
 
 Este repositório conterá o minimundo do negócio escolhido, a modelagem dos dados e o aplicativo/site do projeto..
 
-![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=YELLOW&style=for-the-badge)
+![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=CONCLUÍDO&color=YELLOW&style=for-the-badge)
 
 # Requisitos
 
@@ -23,45 +23,76 @@ Este repositório conterá o minimundo do negócio escolhido, a modelagem dos da
 
 
 # Tecnologias utilizadas e pré-requisitos
-![](https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white) 	![](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white) ![](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) 	![](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white) ![](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white) 
 
-![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
+# Instrução Projeto Spring-boot
 
-# Instalação e Criação de Ambiente Virtual
+## Requisitos
 
-- Clone este repositório remoto no seu diretório local;
+Antes de começar, certifique-se de ter o seguinte instalado no seu ambiente de desenvolvimento:
+
+- JDK 17
+- Maven
+- Git
+
+## Clonar o Repositório
+
+ Para obter uma cópia local do projeto, execute o comando abaixo para clonar o repositório do GitHub:
+ 
 ```shell
-instrução
+git clone https://github.com/Dricalucia/BD–Projeto.git
 ```
--  Utilize os seguintes comandos no terminal:
 
-- Windows
-```shell
-instrução
-```
-- MacOS e Linux
-```shell
-instrução
-```
-Após a conclusão, execute também o seguinte comando a partir da mesma pasta.
+## Instalar Dependências
 
-- Windows
-
-```shell
-instrução
-```
-- MacOS e Linux
-```shell
-instrução
-```
-- Rodar o projeto [Windows e MacOS e Linux]
+Pelo fato de estarmos usando um monorepo ou seja, em um único repositório temos tanto o back-end quanto o front-end, é necessário ir até a pasta que contém o back-end, usando o comando abaixo:
 
 ```shell
-finstrução
+cd server 
 ```
-- Abra no seu navegador o servidor local em **localhost:5000**
-- Ou se preferir, no seu terminal vá até o link do seu servidor local e pressione a tecla Ctrl + click mouse, que o projeto rodará na porta http://127.0.0.1:5000
+Após estar no path correto é usado o `mvn` para instalar as dependências necessárias para rodar o projeto.
 
+```shell
+mvn install
+```
+
+## Configurar o Banco de Dados
+1. Abra o arquivo `application.properties` localizado no diretório `server/src/main/resources`.
+2. Configure as propriedades do banco de dados, substituindo:
+
+```shell
+spring.datasource.url=jdbc:mysql://localhost:3306/<nome_do_seu_database>
+spring.datasource.username=<seu_username>
+spring.datasource.password=<sua_password>
+```
+
+Passo primordial, caso os dados não sejam devidamente alterados o projeto é executado porém não vai funcionar, visto que o banco de dados é inexistente.
+
+## Executar o Servidor
+
+Vamos até o local que contém o back-end:
+```shell
+cd server
+```
+E finalmente rodamos o projeto spring boot usando o `mvn`
+```shell
+mvn spring-boot:run
+```
+Também é possível executar o programa indo em:
+
+> BD--PROJETO/server/src/main/java/com/cesar/portaltemaki/`PortalTemakiApplication.java`
+
+E executando `PortalTemakiApplication.java`
+
+## Testar as APIs
+
+Além disso, o projeto possui o Swagger implementado, o que permite testar as APIs diretamente através da interface do Swagger. Após iniciar o servidor, você pode acessar a documentação da API no seguinte link:
+
+[Swagger](http://localhost:8080/swagger-ui/index.html#/)
+
+A interface do Swagger oferece uma maneira interativa e intuitiva de explorar e testar as diferentes operações disponíveis na sua API, facilitando o processo de desenvolvimento e validação.
+
+**Claro que você pode testar usando softwares como Insomnia ou Postman.**
 
 # Estrutura do diretório
 
@@ -299,6 +330,7 @@ finstrução
 │   ├── mvnw
 │   ├── mvnw.cmd
 │   └── pom.xml
+├── Documentacao_Projeto.pdf
 └── README.md
 
 ```
