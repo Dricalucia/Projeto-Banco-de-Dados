@@ -1,0 +1,22 @@
+.btn-primary {
+    background-color: #7CFF89 !important;
+    border: none !important;
+    color: black !important;
+}
+
+.btn-primary:hover {
+    background-color: #157347 !important;
+    color: white !important;
+}
+
+
+.btn.btn-secondary {
+    background-color: #FF7C7C !important;
+    border: none !important;
+    color: black !important;
+}
+
+.btn.btn-secondary:hover {
+    background-color: #C44851 !important;
+    color: white !important;
+}
