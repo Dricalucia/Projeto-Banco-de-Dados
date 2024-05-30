@@ -31,16 +31,33 @@
 
 }
 
-.tituloCategoria {
-    background-color: #F1F1F1 !important;
-}
-
-
 .form-range.form-range-track-height {
     height: 38px;
 }
 
 #toggleFilters {
+    color: #9e1616 !important;
     margin-bottom: 5px !important;
     background: none !important;
+    border: none !important;
+    font-size: 1.5rem !important;
+}
+
+#toggleFilters:hover {
+    color: #ffc8c8 !important;
+}
+
+/* Estilos para os filtros */
+#filterPrice::-webkit-slider-thumb {
+    background-color: #9e1616 !important; /* Cor do botão antes de apertar */
+}
+
+#filterPrice:active::-webkit-slider-thumb {
+    background-color: #ffc8c8 !important; /* Cor do botão depois de apertar */
+}
+
+/* Estilo para hover e seleção das opções do dropdown */
+#filterCategory option:checked {
+    background-color: #ffc8c8 !important; /* Cor de fundo ao passar o mouse e ao selecionar */
+    color: #000 !important; /* Cor do texto ao passar o mouse e ao selecionar */
 }

@@ -26,7 +26,7 @@
             <button class="btn btn-dark shadow-lg" data-bs-toggle="modal" data-bs-target="#alterarEnderecoModal">Alterar
                 Endereço</button>
             <button class="btn btn-outline-danger shadow-lg" data-bs-toggle="modal"
-                data-bs-target="#excluirContaModal">Excluir Conta</button>
+                data-bs-target="#excluirContaModal">Desativar Conta</button>
         </div>
     </div>
 
@@ -141,18 +141,18 @@
         </div>
     </div>
 
-    <!-- Modal Excluir Conta -->
+    <!-- Modal Desativar Conta -->
     <div class="modal fade" id="excluirContaModal" tabindex="-1" aria-labelledby="excluirContaModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="excluirContaModalLabel">Excluir Conta</h5>
+                    <h5 class="modal-title" id="excluirContaModalLabel">Desativar Conta</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="excluirContaForm">
-                        <p>Tem certeza que deseja apagar sua conta? Esta ação é irreversível.</p>
+                        <p>Tem certeza que deseja desativar sua conta? Esta ação é irreversível.</p>
                         <div class="mb-3">
                             <label for="emailExcluir" class="form-label">E-mail atual</label>
                             <input type="email" class="form-control" id="emailExcluir" required>
@@ -188,17 +188,17 @@
         </div>
     </div>
 
-    <!-- Modal de Confirmação de Exclusão de Conta -->
+    <!-- Modal de Confirmação de Desativação de Conta -->
     <div class="modal fade" id="confirmacaoExclusaoModal" tabindex="-1" aria-labelledby="confirmacaoExclusaoModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmacaoExclusaoModalLabel">Conta Excluída</h5>
+                    <h5 class="modal-title" id="confirmacaoExclusaoModalLabel">Conta Desativada</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Sua conta foi apagada com sucesso.</p>
+                    <p>Sua conta foi desativada com sucesso.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" id="confirmarExclusaoButton">Ok</button>

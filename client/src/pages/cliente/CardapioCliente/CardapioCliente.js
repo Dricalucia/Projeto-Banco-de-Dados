@@ -34,8 +34,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   // Abrir modal para adicionar item à sacola
   $("#addItemModal").on("show.bs.modal", function (event) {
-    var button = $(event.relatedTarget);
-    var item = button.data("item");
+    let button = $(event.relatedTarget);
+    let item = button.data("item");
     $("#modalItemName").text(item.nomeItem);
     $("#modalItemDescription").text(item.descricaoItem);
     $("#modalItemPrice").text(item.precoItem.toFixed(2));
@@ -104,13 +104,15 @@ function renderItems(items, categoryMap) {
     if (itemsByCategory.hasOwnProperty(categoryId)) {
       var categoryName = categoryMap[categoryId] || "Categoria Desconhecida";
       // Adicionar o título da categoria
-      var categoryTitle = `<div class="col-10 mx-auto text-center shadow-sm rounded-2 tituloCategoria"><h3>${categoryName}</h3></div>`;
+      var categoryTitle = `<div class="col-10 py-5 text-start tituloCategoria" data-category="${categoryId}"><h2>${categoryName}</h2></div>`;
       itemsPanel.append(categoryTitle);
 
       // Adicionar os itens da categoria
       itemsByCategory[categoryId].forEach(function (item) {
         var itemCard = `
-                    <div class="col-md-3 p-3">
+                    <div class="col-md-3 p-3 item-card" data-category="${
+                      item.idCategoria
+                    }">
                         <div class="card shadow-lg rounded-2 border border-2 border-black">
                             <div class="card-body">
                                 <h5 class="card-title nomeProduto">${
@@ -139,11 +141,12 @@ function renderItems(items, categoryMap) {
       });
     }
   }
+  filterItems(); // Aplicar filtros ao renderizar os itens
 }
 
 function groupItemsByCategory(items) {
   return items.reduce(function (groupedItems, item) {
-    var categoryId = item.idCategoria;
+    let categoryId = item.idCategoria;
     if (!groupedItems[categoryId]) {
       groupedItems[categoryId] = [];
     }
@@ -153,44 +156,62 @@ function groupItemsByCategory(items) {
 }
 
 function filterItems() {
-  var selectedCategory = $("#filterCategory").val();
-  var name = $("#filterName").val().toLowerCase();
-  var price = parseFloat($("#filterPrice").val());
+  let selectedCategory = $("#filterCategory").val();
+  let name = $("#filterName").val().toLowerCase();
+  let price = parseFloat($("#filterPrice").val());
 
-  $("#itemsPanel .card").each(function () {
-    var item = $(this).find("button").data("item");
-    var match = true;
+  let anyItemVisible = false;
 
-    if (selectedCategory && item.idCategoria.toString() !== selectedCategory) {
-      match = false;
-    }
-    if (name && !item.nomeItem.toLowerCase().includes(name)) {
-      match = false;
-    }
-    if (price > 0 && item.precoItem > price) {
-      match = false;
-    }
+  $(".tituloCategoria").each(function () {
+    let categoryId = $(this).data("category");
+    let itemsVisible = 0;
 
-    if (match) {
-      $(this).parent().show();
+    $(`.item-card[data-category="${categoryId}"]`).each(function () {
+      let item = $(this).find("button").data("item");
+      let match = true;
+
+      if (
+        selectedCategory &&
+        item.idCategoria.toString() !== selectedCategory
+      ) {
+        match = false;
+      }
+      if (name && !item.nomeItem.toLowerCase().includes(name)) {
+        match = false;
+      }
+      if (price > 0 && item.precoItem > price) {
+        match = false;
+      }
+
+      if (match) {
+        $(this).show();
+        itemsVisible++;
+      } else {
+        $(this).hide();
+      }
+    });
+
+    if (itemsVisible > 0) {
+      $(this).show();
+      anyItemVisible = true;
     } else {
-      $(this).parent().hide();
+      $(this).hide();
     }
   });
 }
 
 function updateTotalPrice(price) {
-  var quantity = $("#itemQuantity").val();
-  var totalPrice = price * quantity;
+  let quantity = $("#itemQuantity").val();
+  let totalPrice = price * quantity;
   $("#totalPrice").text(totalPrice.toFixed(2));
 }
 
 function addToBag(item) {
-  var quantity = $("#itemQuantity").val();
-  var sacolaItems = JSON.parse(localStorage.getItem("sacola")) || [];
+  let quantity = $("#itemQuantity").val();
+  let sacolaItems = JSON.parse(localStorage.getItem("sacola")) || [];
 
   // Verificar se o item já está na sacola
-  var existingItemIndex = sacolaItems.findIndex(
+  let existingItemIndex = sacolaItems.findIndex(
     (sacolaItem) => sacolaItem.idItem === item.idItem
   );
 
