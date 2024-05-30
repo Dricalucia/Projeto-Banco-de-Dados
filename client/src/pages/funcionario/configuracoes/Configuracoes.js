@@ -1,3 +1,5 @@
+let globalMatricula; // Variável global para armazenar a matrícula do funcionário
+
 window.addEventListener("DOMContentLoaded", (event) => {
   const headerContainer = document.getElementById("header-container");
   fetch("../../../utils/HeaderFuncionario.html")
@@ -45,6 +47,32 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   // Carregar clientes ao abrir modal
   $("#clientesModal").on("show.bs.modal", loadClientes);
+
+  // Mostrar ou esconder campos de dependentes no modal de cadastro
+  document
+    .getElementById("hasDependente")
+    .addEventListener("change", function () {
+      const dependenteFields = document.getElementById("dependenteFields");
+      if (this.checked) {
+        dependenteFields.classList.remove("d-none");
+      } else {
+        dependenteFields.classList.add("d-none");
+      }
+    });
+
+  // Mostrar ou esconder campos de dependentes no modal de edição
+  document
+    .getElementById("hasDependenteEditar")
+    .addEventListener("change", function () {
+      const dependenteFields = document.getElementById(
+        "dependenteEditarNovoFields"
+      );
+      if (this.checked) {
+        dependenteFields.classList.remove("d-none");
+      } else {
+        dependenteFields.classList.add("d-none");
+      }
+    });
 });
 
 async function loadCategorias() {
@@ -99,7 +127,43 @@ async function cadastrarFuncionario(event) {
     });
 
     if (response.ok) {
-      console.log("Funcionário cadastrado com sucesso!");
+      const funcionariosResponse = await fetch(
+        "http://localhost:8080/funcionarios"
+      );
+      const funcionarios = await funcionariosResponse.json();
+      const ultimoFuncionario = funcionarios[funcionarios.length - 1];
+      const matriculaFuncionario = ultimoFuncionario.matricula;
+
+      if (document.getElementById("hasDependente").checked) {
+        const dependente = {
+          cpfDependente: document.getElementById("cpfDependente").value,
+          matriculaFuncionario: matriculaFuncionario,
+          nome: document.getElementById("nomeDependente").value,
+          dataNascimento: new Date(
+            document.getElementById("dataNascimentoDependente").value
+          ).toISOString(),
+        };
+
+        const dependenteResponse = await fetch(
+          "http://localhost:8080/dependentes",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dependente),
+          }
+        );
+
+        if (dependenteResponse.ok) {
+          alert("Funcionário e dependente cadastrados com sucesso!");
+        } else {
+          console.error("Erro ao cadastrar dependente");
+        }
+      } else {
+        alert("Funcionário cadastrado com sucesso!");
+      }
+
       $("#cadastrarFuncionarioModal").modal("hide");
       location.reload();
     } else {
@@ -114,6 +178,7 @@ async function buscarFuncionario(event) {
   event.preventDefault();
 
   const matricula = document.getElementById("matriculaBuscar").value;
+  globalMatricula = matricula; // Armazenar a matrícula globalmente
 
   try {
     const response = await fetch(
@@ -133,7 +198,9 @@ async function buscarFuncionario(event) {
     document.getElementById("editarNome").value = funcionario.nome;
     document.getElementById("editarDataAdmissao").value = new Date(
       funcionario.dataAdmissao
-    ).toLocaleDateString();
+    )
+      .toISOString()
+      .split("T")[0];
     document.getElementById("editarFuncao").value = funcionario.funcao;
     document.getElementById("editarSalario").value = funcionario.salario;
     document.getElementById("editarCep").value = funcionario.cep;
@@ -143,6 +210,47 @@ async function buscarFuncionario(event) {
     document.getElementById("editarCidade").value = funcionario.cidade;
     document.getElementById("editarUf").value = funcionario.uf;
     document.getElementById("editarStatus").value = funcionario.status;
+
+    // Verificar e preencher dependentes
+    try {
+      const dependenteResponse = await fetch(
+        `http://localhost:8080/dependentes/${matricula}`
+      );
+      if (dependenteResponse.ok) {
+        const dependente = await dependenteResponse.json();
+        if (dependente && dependente.length > 0) {
+          const dependenteData = dependente[0];
+          document.getElementById("editarCpfDependente").value =
+            dependenteData.cpfDependente;
+          document.getElementById("editarNomeDependente").value =
+            dependenteData.nome;
+          document.getElementById("editarDataNascimentoDependente").value =
+            new Date(dependenteData.dataNascimento).toISOString().split("T")[0];
+          document
+            .getElementById("dependenteEditarFields")
+            .classList.remove("d-none");
+
+          // Ocultar checkbox de novo dependente se já existir um dependente
+          document
+            .getElementById("hasDependenteEditarDiv")
+            .classList.add("d-none");
+        }
+      } else {
+        // Mostrar checkbox de novo dependente se não existir dependente
+        document
+          .getElementById("hasDependenteEditarDiv")
+          .classList.remove("d-none");
+      }
+    } catch (dependenteError) {
+      if (dependenteError.message.includes("404")) {
+        // Funcionário não possui dependentes, mostrar checkbox
+        document
+          .getElementById("hasDependenteEditarDiv")
+          .classList.remove("d-none");
+      } else {
+        console.error("Erro ao buscar dependente:", dependenteError);
+      }
+    }
 
     // Mostrar formulário de edição
     document.getElementById("buscarFuncionarioForm").classList.add("d-none");
@@ -155,13 +263,13 @@ async function buscarFuncionario(event) {
 async function editarFuncionario(event) {
   event.preventDefault();
 
-  const matricula = document.getElementById("editarMatricula").value;
-
   const funcionario = {
-    matricula: parseInt(matricula),
+    matricula: parseInt(globalMatricula),
     cpf: document.getElementById("editarCpf").value,
     nome: document.getElementById("editarNome").value,
-    dataAdmissao: document.getElementById("editarDataAdmissao").value,
+    dataAdmissao: new Date(
+      document.getElementById("editarDataAdmissao").value
+    ).toISOString(),
     funcao: document.getElementById("editarFuncao").value,
     salario: parseFloat(document.getElementById("editarSalario").value),
     cep: document.getElementById("editarCep").value,
@@ -177,7 +285,7 @@ async function editarFuncionario(event) {
 
   try {
     const response = await fetch(
-      `http://localhost:8080/funcionarios/${matricula}`,
+      `http://localhost:8080/funcionarios/${globalMatricula}`,
       {
         method: "PUT",
         headers: {
@@ -188,11 +296,66 @@ async function editarFuncionario(event) {
     );
 
     if (response.ok) {
+      // Verificar e atualizar dependente
+      const cpfDependente = document.getElementById(
+        "editarCpfDependente"
+      ).value;
+      if (cpfDependente) {
+        const dependente = {
+          cpfDependente: cpfDependente,
+          matriculaFuncionario: globalMatricula,
+          nome: document.getElementById("editarNomeDependente").value,
+          dataNascimento: new Date(
+            document.getElementById("editarDataNascimentoDependente").value
+          ).toISOString(),
+        };
+
+        const dependenteResponse = await fetch(
+          `http://localhost:8080/dependentes/${cpfDependente}/${globalMatricula}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dependente),
+          }
+        );
+
+        if (!dependenteResponse.ok) {
+          console.error("Erro ao editar dependente");
+        }
+      } else if (document.getElementById("hasDependenteEditar").checked) {
+        const novoDependente = {
+          cpfDependente: document.getElementById("cpfDependenteNovo").value,
+          matriculaFuncionario: globalMatricula,
+          nome: document.getElementById("nomeDependenteNovo").value,
+          dataNascimento: new Date(
+            document.getElementById("dataNascimentoDependenteNovo").value
+          ).toISOString(),
+        };
+
+        const novoDependenteResponse = await fetch(
+          "http://localhost:8080/dependentes",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(novoDependente),
+          }
+        );
+
+        if (!novoDependenteResponse.ok) {
+          console.error("Erro ao cadastrar novo dependente");
+        }
+      }
+
       console.log("Funcionário editado com sucesso!");
       $("#editarFuncionarioModal").modal("hide");
       location.reload();
     } else {
-      console.error("Erro ao editar funcionário");
+      const errorText = await response.text();
+      console.error("Erro ao editar funcionário:", errorText);
     }
   } catch (error) {
     console.error("Erro ao editar funcionário:", error);
@@ -309,13 +472,13 @@ async function loadClientes() {
     clientes.forEach((cliente) => {
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td>${cliente.idCliente}</td>
-        <td>${cliente.nome}</td>
-        <td>${cliente.sobrenome}</td>
-        <td>${cliente.telefone}</td>
-        <td>${cliente.email}</td>
-        <td>${new Date(cliente.dataCadastro).toLocaleDateString()}</td>
-      `;
+              <td>${cliente.idCliente}</td>
+              <td>${cliente.nome}</td>
+              <td>${cliente.sobrenome}</td>
+              <td>${cliente.telefone}</td>
+              <td>${cliente.email}</td>
+              <td>${new Date(cliente.dataCadastro).toLocaleDateString()}</td>
+          `;
       row.addEventListener("click", () => {
         document.getElementById(
           "enderecoCliente"

@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-
+/* Login Cliente e Funcionario | Cadastro Cliente      <link rel="stylesheet" href="/Projeto-Banco-de-Dados/client/src/pages/style.css"> */
 body,
 html {
     height: 100%;
@@ -14,13 +13,33 @@ html {
     max-height: 50%;
 }
 
+h1 {
+    font-weight: 800;
+
+}
+
 h2 {
     font-weight: 700;
 }
 
+h3 {
+    font-weight: 600;
+}
+
+h4 {
+    font-weight: 500;
+}
+
+h5 {
+    font-weight: 400;
+}
+
+h6 {
+    font-weight: 300;
+}
+
 .login-card {
     max-width: 460px;
-
     background: rgba(255, 255, 255, 0.71) !important;
     border-radius: 16px !important;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
@@ -33,3 +52,38 @@ h2 {
     background-color: #c8c8c8;
     border-color: white;
 }
+
+/* Paginas Cliente*/
+
+/* Cardapio */
+
+
+
+/* Pedidos */
+
+
+
+/* Sacola */
+
+
+
+/* Configurações de Conta*/
+
+
+/*FIM Paginas Cliente */
+
+
+/* Paginas Funcionario */
+
+
+/* Pedidos */
+
+
+/* Historico de Pedidos */
+
+
+/* Área do Funcionario */
+
+/* Configurações */
+
+/* Dashboard */

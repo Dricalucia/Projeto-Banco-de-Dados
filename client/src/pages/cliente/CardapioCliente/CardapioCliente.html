@@ -40,7 +40,9 @@
             </div>
             <div class="col-md-4 d-flex flex-column">
                 <label for="filterPrice" class="form-label">Preço</label>
-                <input type="range" id="filterPrice" class="form-range form-range-track-height rounded-2 border border-secondary-subtle px-1" min="0" max="110" step="1" value="0" style="background-color: white; border: 1px solid black;">
+                <input type="range" id="filterPrice"
+                    class="form-range form-range-track-height rounded-2 border border-secondary-subtle px-1" min="0"
+                    max="110" step="1" value="0" style="background-color: white; border: 1px solid black;">
                 <span id="filterPriceValue">0</span>
             </div>
         </div>
@@ -55,7 +57,8 @@
     </div>
 
     <!-- Modal para adicionar item à sacola -->
-    <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -70,7 +73,8 @@
                         <label for="itemQuantity">Quantidade</label>
                         <input type="number" class="form-control" id="itemQuantity" value="1" min="1">
                     </div>
-                    <button type="button" id="addToBagButton" class="btn btn-primary">Adicionar - R$<span id="totalPrice"></span></button>
+                    <button type="button" id="addToBagButton" class="btn btn-primary">Adicionar - R$<span
+                            id="totalPrice"></span></button>
                 </div>
             </div>
         </div>

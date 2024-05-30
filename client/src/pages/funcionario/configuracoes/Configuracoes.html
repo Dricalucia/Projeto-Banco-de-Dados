@@ -20,11 +20,9 @@
         <div class="container-fluid mt-4 rounded-2 border border-black shadow-lg d-flex justify-content-center gap-3 p-3"
             style="width: auto;">
             <button class="btn btn-dark shadow-lg" data-bs-toggle="modal"
-                data-bs-target="#cadastrarFuncionarioModal">Cadastrar
-                Funcionário</button>
+                data-bs-target="#cadastrarFuncionarioModal">Cadastrar Funcionário</button>
             <button class="btn btn-dark shadow-lg" data-bs-toggle="modal"
-                data-bs-target="#editarFuncionarioModal">Editar
-                Funcionário</button>
+                data-bs-target="#editarFuncionarioModal">Editar Funcionário</button>
             <button class="btn btn-dark shadow-lg" data-bs-toggle="modal" data-bs-target="#cadastrarItemModal">Cadastrar
                 Item</button>
             <button class="btn btn-dark shadow-lg" data-bs-toggle="modal" data-bs-target="#editarItemModal">Editar
@@ -38,7 +36,7 @@
     <!-- Modal Cadastrar Novo Funcionario -->
     <div class="modal fade" id="cadastrarFuncionarioModal" tabindex="-1"
         aria-labelledby="cadastrarFuncionarioModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="cadastrarFuncionarioModalLabel">Cadastro de Novo Funcionario</h5>
@@ -47,56 +45,96 @@
                 <div class="modal-body">
                     <form id="cadastrarFuncionarioForm">
                         <input type="hidden" id="matricula" value="0" disabled>
-                        <div class="mb-3">
-                            <label for="cpf" class="form-label">CPF</label>
-                            <input type="text" class="form-control" id="cpf" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="nome" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="nome" required>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="cpf" class="form-label">CPF</label>
+                                <input type="text" class="form-control" id="cpf" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="nome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="nome" required>
+                            </div>
                         </div>
                         <input type="hidden" id="dataAdmissao" value="${new Date().toISOString()}">
-                        <div class="mb-3">
-                            <label for="funcao" class="form-label">Função</label>
-                            <select class="form-select" id="funcao">
-                                <option value="Gerente">Gerente</option>
-                                <option value="Nutricionista">Nutricionista</option>
-                                <option value="Chef">Chef</option>
-                                <option value="Atendente">Atendente</option>
-                                <option value="Assistente de Cozinha">Assistente de Cozinha</option>
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="funcao" class="form-label">Função</label>
+                                <select class="form-select" id="funcao">
+                                    <option value="Gerente">Gerente</option>
+                                    <option value="Nutricionista">Nutricionista</option>
+                                    <option value="Chef">Chef</option>
+                                    <option value="Atendente">Atendente</option>
+                                    <option value="Assistente de Cozinha">Assistente de Cozinha</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="salario" class="form-label">Salário</label>
+                                <input type="number" class="form-control" id="salario" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="salario" class="form-label">Salário</label>
-                            <input type="number" class="form-control" id="salario" required>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="cep" class="form-label">CEP</label>
+                                <input type="text" class="form-control" id="cep" required>
+                                <div id="cepInvalido" class="text-danger d-none">CEP inválido</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="rua" class="form-label">Rua</label>
+                                <input type="text" class="form-control" id="rua" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="cep" class="form-label">CEP</label>
-                            <input type="text" class="form-control" id="cep" required>
-                            <div id="cepInvalido" class="text-danger d-none">CEP inválido</div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="numero" class="form-label">Número</label>
+                                <input type="number" class="form-control" id="numero" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="bairro" class="form-label">Bairro</label>
+                                <input type="text" class="form-control" id="bairro" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="rua" class="form-label">Rua</label>
-                            <input type="text" class="form-control" id="rua" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="numero" class="form-label">Número</label>
-                            <input type="number" class="form-control" id="numero" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="bairro" class="form-label">Bairro</label>
-                            <input type="text" class="form-control" id="bairro" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="cidade" class="form-label">Cidade</label>
-                            <input type="text" class="form-control" id="cidade" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="uf" class="form-label">UF</label>
-                            <input type="text" class="form-control" id="uf" required>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="cidade" class="form-label">Cidade</label>
+                                <input type="text" class="form-control" id="cidade" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="uf" class="form-label">UF</label>
+                                <input type="text" class="form-control" id="uf" required>
+                            </div>
                         </div>
                         <input type="hidden" id="status" value="A" disabled>
                         <input type="hidden" id="lojasCnpj" value="12345678901234" disabled>
+                        <!-- Campo de Dependentes -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="hasDependente">
+                                    <label class="form-check-label" for="hasDependente">
+                                        Funcionário possui algum dependente?
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="dependenteFields" class="d-none">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="cpfDependente" class="form-label">CPF do Dependente</label>
+                                    <input type="text" class="form-control" id="cpfDependente">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="nomeDependente" class="form-label">Nome do Dependente</label>
+                                    <input type="text" class="form-control" id="nomeDependente">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="dataNascimentoDependente" class="form-label">Data de Nascimento do
+                                        Dependente</label>
+                                    <input type="date" class="form-control" id="dataNascimentoDependente">
+                                </div>
+                            </div>
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -110,7 +148,7 @@
     <!-- Modal Editar Funcionario -->
     <div class="modal fade" id="editarFuncionarioModal" tabindex="-1" aria-labelledby="editarFuncionarioModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editarFuncionarioModalLabel">Editar Funcionario</h5>
@@ -126,66 +164,126 @@
                     </form>
                     <form id="editarFuncionarioForm" class="d-none">
                         <input type="hidden" id="editarMatricula" disabled>
-                        <div class="mb-3">
-                            <label for="editarCpf" class="form-label">CPF</label>
-                            <input type="text" class="form-control" id="editarCpf" required>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editarCpf" class="form-label">CPF</label>
+                                <input type="text" class="form-control" id="editarCpf" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editarNome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="editarNome" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="editarNome" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="editarNome" required>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editarDataAdmissao" class="form-label">Data de Admissão</label>
+                                <input type="text" class="form-control" id="editarDataAdmissao" disabled>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editarFuncao" class="form-label">Função</label>
+                                <select class="form-select" id="editarFuncao">
+                                    <option value="Gerente">Gerente</option>
+                                    <option value="Nutricionista">Nutricionista</option>
+                                    <option value="Chef">Chef</option>
+                                    <option value="Atendente">Atendente</option>
+                                    <option value="Assistente de Cozinha">Assistente de Cozinha</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="editarDataAdmissao" class="form-label">Data de Admissão</label>
-                            <input type="text" class="form-control" id="editarDataAdmissao" disabled>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editarSalario" class="form-label">Salário</label>
+                                <input type="number" class="form-control" id="editarSalario" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editarCep" class="form-label">CEP</label>
+                                <input type="text" class="form-control" id="editarCep" required>
+                                <div id="editarCepInvalido" class="text-danger d-none">CEP inválido</div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="editarFuncao" class="form-label">Função</label>
-                            <select class="form-select" id="editarFuncao">
-                                <option value="Gerente">Gerente</option>
-                                <option value="Nutricionista">Nutricionista</option>
-                                <option value="Chef">Chef</option>
-                                <option value="Atendente">Atendente</option>
-                                <option value="Assistente de Cozinha">Assistente de Cozinha</option>
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editarRua" class="form-label">Rua</label>
+                                <input type="text" class="form-control" id="editarRua" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editarNumero" class="form-label">Número</label>
+                                <input type="number" class="form-control" id="editarNumero" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="editarSalario" class="form-label">Salário</label>
-                            <input type="number" class="form-control" id="editarSalario" required>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editarBairro" class="form-label">Bairro</label>
+                                <input type="text" class="form-control" id="editarBairro" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editarCidade" class="form-label">Cidade</label>
+                                <input type="text" class="form-control" id="editarCidade" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="editarCep" class="form-label">CEP</label>
-                            <input type="text" class="form-control" id="editarCep" required>
-                            <div id="editarCepInvalido" class="text-danger d-none">CEP inválido</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editarRua" class="form-label">Rua</label>
-                            <input type="text" class="form-control" id="editarRua" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editarNumero" class="form-label">Número</label>
-                            <input type="number" class="form-control" id="editarNumero" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editarBairro" class="form-label">Bairro</label>
-                            <input type="text" class="form-control" id="editarBairro" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editarCidade" class="form-label">Cidade</label>
-                            <input type="text" class="form-control" id="editarCidade" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editarUf" class="form-label">UF</label>
-                            <input type="text" class="form-control" id="editarUf" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editarStatus" class="form-label">Status</label>
-                            <select class="form-select" id="editarStatus">
-                                <option value="A">Ativo</option>
-                                <option value="D">Desligado</option>
-                                <option value="F">Férias</option>
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editarUf" class="form-label">UF</label>
+                                <input type="text" class="form-control" id="editarUf" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editarStatus" class="form-label">Status</label>
+                                <select class="form-select" id="editarStatus">
+                                    <option value="A">Ativo</option>
+                                    <option value="D">Desligado</option>
+                                    <option value="F">Férias</option>
+                                </select>
+                            </div>
                         </div>
                         <input type="hidden" id="editarLojasCnpj" value="12345678901234" disabled>
+                        <div id="dependenteEditarFields" class="d-none">
+                            <h5>Dependente</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="editarCpfDependente" class="form-label">CPF do Dependente</label>
+                                    <input type="text" class="form-control" id="editarCpfDependente">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="editarNomeDependente" class="form-label">Nome do Dependente</label>
+                                    <input type="text" class="form-control" id="editarNomeDependente">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="editarDataNascimentoDependente" class="form-label">Data de Nascimento do
+                                        Dependente</label>
+                                    <input type="date" class="form-control" id="editarDataNascimentoDependente">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="hasDependenteEditarDiv" class="d-none">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="hasDependenteEditar">
+                                <label class="form-check-label" for="hasDependenteEditar">
+                                    Funcionário possui algum dependente?
+                                </label>
+                            </div>
+                        </div>
+                        <div id="dependenteEditarNovoFields" class="d-none">
+                            <h5>Novo Dependente</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="cpfDependenteNovo" class="form-label">CPF do Dependente</label>
+                                    <input type="text" class="form-control" id="cpfDependenteNovo">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="nomeDependenteNovo" class="form-label">Nome do Dependente</label>
+                                    <input type="text" class="form-control" id="nomeDependenteNovo">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="dataNascimentoDependenteNovo" class="form-label">Data de Nascimento do
+                                        Dependente</label>
+                                    <input type="date" class="form-control" id="dataNascimentoDependenteNovo">
+                                </div>
+                            </div>
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary">Salvar</button>
