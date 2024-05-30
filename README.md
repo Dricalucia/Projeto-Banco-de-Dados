@@ -40,7 +40,7 @@ Antes de começar, certifique-se de ter o seguinte instalado no seu ambiente de 
  Para obter uma cópia local do projeto, execute o comando abaixo para clonar o repositório do GitHub:
  
 ```shell
-git clone https://github.com/Dricalucia/BD–Projeto.git
+git clone https://github.com/Dricalucia/Projeto-Banco-de-Dados.git
 ```
 
 ## Instalar Dependências
